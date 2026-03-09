@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Card Search</title>
+
+<link rel="stylesheet" href="../css/style.css">
+<link rel="stylesheet" href="../css/card-search.css">
+
+</head>
+
+<body>
+
+<div class="subpage-container">
+
+<header class="subpage-header">
+<h1>Card Search</h1>
+
+<a href="../index.html" class="menu-button">
+Back
+</a>
+</header>
+
+
+<section class="card-search-controls">
+
+<input id="cardSearchInput" placeholder="Search card name...">
+
+<select id="typeFilter">
+<option value="">All Types</option>
+<option value="Monster">Monster</option>
+<option value="Spell">Spell</option>
+<option value="Trap">Trap</option>
+</select>
+
+<select id="attributeFilter">
+<option value="">All Attributes</option>
+<option>DARK</option>
+<option>LIGHT</option>
+<option>EARTH</option>
+<option>WATER</option>
+<option>FIRE</option>
+<option>WIND</option>
+<option>DIVINE</option>
+</select>
+
+<select id="scopeFilter">
+<option value="all">All Cards</option>
+<option value="binder">Player Binder</option>
+</select>
+
+</section>
+
+
+<section id="cardGrid" class="card-grid"></section>
+
+<button id="loadMoreButton" class="menu-button">
+Load More
+</button>
+
+</div>
+
+<script src="../js/database.js"></script>
+<script src="../js/card-search.js"></script>
+
+</body>
+</html>
