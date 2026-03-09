@@ -50,7 +50,7 @@ body {
 
 .main-header {
   position: relative;
-  padding: 20px;
+  padding: 16px 20px 8px;
   text-align: center;
 }
 
@@ -67,11 +67,63 @@ body {
 .main-logo-wrap {
   display: flex;
   justify-content: center;
+  align-items: center;
+  margin-top: 6px;
+  margin-bottom: 10px;
+  min-height: 160px;
 }
 
 .main-logo {
-  width: 420px;
-  max-width: 80%;
+  width: min(520px, 62vw);
+  max-width: 100%;
+  max-height: 220px;
+  height: auto;
+  display: block;
+  object-fit: contain;
+  filter:
+    drop-shadow(0 0 10px rgba(255, 180, 60, 0.22))
+    drop-shadow(0 0 24px rgba(255, 140, 30, 0.18))
+    drop-shadow(0 10px 24px rgba(0, 0, 0, 0.28));
+  animation: logoFloat 4.8s ease-in-out infinite;
+}
+
+@keyframes logoFloat {
+  0% {
+    transform: translateY(0px) scale(1);
+  }
+  50% {
+    transform: translateY(-4px) scale(1.01);
+  }
+  100% {
+    transform: translateY(0px) scale(1);
+  }
+}
+
+@media (max-width: 900px) {
+  .main-logo {
+    width: min(440px, 86vw);
+    max-height: 180px;
+  }
+
+  .main-logo-wrap {
+    min-height: 130px;
+    margin-bottom: 6px;
+  }
+
+  .main-header {
+    padding: 14px 16px 6px;
+  }
+}
+
+@media (max-width: 560px) {
+  .main-logo {
+    width: 92vw;
+    max-height: 140px;
+  }
+
+  .main-logo-wrap {
+    min-height: 100px;
+  }
 }
 
 /* MAIN LAYOUT */
