@@ -15,6 +15,21 @@ const SUPABASE_KEY = "sb_publishable_B8LUkJ_0StXvC5kw_etRWg_SskUXrIK";
     return data?.user || null;
   }
 
+  async function fetchUnlockedRows(tableName, sessionId) {
+    const { data, error } = await client
+      .from(tableName)
+      .select("*")
+      .eq("session_id", sessionId)
+      .order("name", { ascending: true });
+
+    if (error) {
+      console.error(`fetchUnlockedRows(${tableName}) error:`, error.message);
+      throw error;
+    }
+
+    return data || [];
+  }
+
   window.db = {
     supabase: client,
 
@@ -122,6 +137,25 @@ const SUPABASE_KEY = "sb_publishable_B8LUkJ_0StXvC5kw_etRWg_SskUXrIK";
       return fallback.data || null;
     },
 
+    async getMyPlayerState(sessionId) {
+      const userRecord = await this.getOrCreateUserRecord();
+      if (!userRecord) return null;
+
+      const { data, error } = await client
+        .from("player_state")
+        .select("*")
+        .eq("session_id", sessionId)
+        .eq("user_id", userRecord.id)
+        .maybeSingle();
+
+      if (error) {
+        console.error("getMyPlayerState error:", error.message);
+        throw error;
+      }
+
+      return data || null;
+    },
+
     async loadSessionPlayers(sessionId) {
       const { data, error } = await client
         .from("session_players")
@@ -152,6 +186,95 @@ const SUPABASE_KEY = "sb_publishable_B8LUkJ_0StXvC5kw_etRWg_SskUXrIK";
       }
 
       return data || [];
+    },
+
+    async getSessionActivity(sessionId, limit = 20) {
+      const { data, error } = await client
+        .from("activity_feed")
+        .select("*")
+        .eq("session_id", sessionId)
+        .order("created_at", { ascending: false })
+        .limit(limit);
+
+      if (error) {
+        console.error("getSessionActivity error:", error.message);
+        throw error;
+      }
+
+      return data || [];
+    },
+
+    async getSessionContentState(sessionId) {
+      const [packs, promoBoxes, featureCards] = await Promise.all([
+        fetchUnlockedRows("packs", sessionId),
+        fetchUnlockedRows("promo_boxes", sessionId),
+        fetchUnlockedRows("feature_cards", sessionId)
+      ]);
+
+      return {
+        packs,
+        promoBoxes,
+        featureCards,
+        unlockedPacks: packs.filter((row) => row.is_unlocked),
+        unlockedPromoBoxes: promoBoxes.filter((row) => row.is_unlocked),
+        unlockedFeatureCards: featureCards.filter((row) => row.is_unlocked)
+      };
+    },
+
+    async isPackUnlocked(sessionId, packIdOrCode) {
+      const { data, error } = await client
+        .from("packs")
+        .select("id, code, is_unlocked")
+        .eq("session_id", sessionId)
+        .or(`id.eq.${packIdOrCode},code.eq.${packIdOrCode}`)
+        .maybeSingle();
+
+      if (error) throw error;
+      return !!data?.is_unlocked;
+    },
+
+    async isPromoBoxUnlocked(sessionId, promoIdOrCode) {
+      const { data, error } = await client
+        .from("promo_boxes")
+        .select("id, code, is_unlocked")
+        .eq("session_id", sessionId)
+        .or(`id.eq.${promoIdOrCode},code.eq.${promoIdOrCode}`)
+        .maybeSingle();
+
+      if (error) throw error;
+      return !!data?.is_unlocked;
+    },
+
+    async isFeatureCardUnlocked(sessionId, featureIdOrCode) {
+      const { data, error } = await client
+        .from("feature_cards")
+        .select("id, code, is_unlocked")
+        .eq("session_id", sessionId)
+        .or(`id.eq.${featureIdOrCode},code.eq.${featureIdOrCode}`)
+        .maybeSingle();
+
+      if (error) throw error;
+      return !!data?.is_unlocked;
+    },
+
+    async requireUnlocked(type, sessionId, idOrCode) {
+      let unlocked = false;
+
+      if (type === "pack") {
+        unlocked = await this.isPackUnlocked(sessionId, idOrCode);
+      } else if (type === "promo_box") {
+        unlocked = await this.isPromoBoxUnlocked(sessionId, idOrCode);
+      } else if (type === "feature_card") {
+        unlocked = await this.isFeatureCardUnlocked(sessionId, idOrCode);
+      } else {
+        throw new Error(`Unknown unlockable type: ${type}`);
+      }
+
+      if (!unlocked) {
+        throw new Error(`${type} is locked for this session.`);
+      }
+
+      return true;
     },
 
     async joinSessionLobby(sessionId) {
@@ -216,41 +339,6 @@ const SUPABASE_KEY = "sb_publishable_B8LUkJ_0StXvC5kw_etRWg_SskUXrIK";
 
       if (error) {
         console.error("switchActiveSession error:", error.message);
-        throw error;
-      }
-
-      return data;
-    },
-
-    async getSessionActivity(sessionId, limit = 20) {
-      const { data, error } = await client
-        .from("activity_feed")
-        .select("*")
-        .eq("session_id", sessionId)
-        .order("created_at", { ascending: false })
-        .limit(limit);
-
-      if (error) {
-        console.error("getSessionActivity error:", error.message);
-        throw error;
-      }
-
-      return data || [];
-    },
-
-    async getMyPlayerState(sessionId) {
-      const userRecord = await this.getOrCreateUserRecord();
-      if (!userRecord) return null;
-
-      const { data, error } = await client
-        .from("player_state")
-        .select("*")
-        .eq("session_id", sessionId)
-        .eq("user_id", userRecord.id)
-        .maybeSingle();
-
-      if (error) {
-        console.error("getMyPlayerState error:", error.message);
         throw error;
       }
 

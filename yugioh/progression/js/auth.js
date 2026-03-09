@@ -10,6 +10,8 @@ const ADMIN_DISCORD_ID = "475880707403546644";
   }
 
   window.ggAuth = {
+    ADMIN_DISCORD_ID,
+
     async signInWithDiscord() {
       const client = getClient();
       if (!client) {
@@ -90,48 +92,20 @@ const ADMIN_DISCORD_ID = "475880707403546644";
         username,
         avatar,
         role
-     };
+      };
 
-      const { data: existing, error: existingError } = await client
+      const { data, error } = await client
         .from("users")
-        .select("*")
-        .eq("discord_id", payload.discord_id)
-        .maybeSingle();
-
-      if (existingError) {
-        console.error("Failed to check existing user:", existingError.message);
-        return null;
-      }
-
-      if (existing) {
-        const { error: updateError } = await client
-          .from("users")
-          .update({
-            username: payload.username,
-            avatar: payload.avatar,
-            role: payload.role
-          })
-          .eq("discord_id", payload.discord_id);
-
-        if (updateError) {
-          console.error("Failed to update user:", updateError.message);
-        }
-
-        return { ...existing, ...payload };
-      }
-
-      const { data: inserted, error: insertError } = await client
-        .from("users")
-        .insert(payload)
+        .upsert(payload, { onConflict: "discord_id" })
         .select()
         .single();
 
-      if (insertError) {
-        console.error("Failed to create user:", insertError.message);
+      if (error) {
+        console.error("Failed to create/update user:", error.message);
         return null;
       }
 
-      return inserted;
+      return data;
     }
   };
 })();
