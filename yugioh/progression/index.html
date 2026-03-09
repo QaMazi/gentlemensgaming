@@ -1,0 +1,282 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>YGO Progression Series App</title>
+  <link rel="stylesheet" href="css/style.css" />
+  <script defer src="../assets/vendor/fontawesome-free/js/all.js"></script>
+  <script defer src="../assets/vendor/fontawesome-free/js/v4-shims.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+</head>
+<body>
+<div id="authGate" class="auth-gate">
+  <div class="auth-card">
+    <h2>YGO Progression Login</h2>
+
+    <p>
+      Sign in with Discord to access the progression app.
+    </p>
+
+    <button id="discordLoginButton" class="menu-button">
+      Login with Discord
+    </button>
+
+    <div id="authUserInfo" class="auth-user"></div>
+  </div>
+</div>
+  <div class="video-background">
+    <video autoplay muted loop playsinline id="bgVideo">
+      <source src="assets/video/background.mp4" type="video/mp4" />
+    </video>
+    <div class="video-overlay"></div>
+  </div>
+
+  <div class="app-shell">
+    <header class="main-header">
+      <div class="version-tag">v0.1.0</div>
+
+      <div class="main-logo-wrap">
+        <img
+  src="assets/logos/progression-series-logo.png"
+  alt="Progression Series Logo"
+  class="main-logo"
+/>
+      </div>
+    </header>
+
+    <main class="main-menu-layout">
+
+  <aside class="account-panel">
+    <div class="account-card">
+      <div class="account-card-header">
+        <h2>Logged In User</h2>
+      </div>
+
+      <div class="account-card-body">
+        <div class="account-avatar-wrap">
+          <img
+            id="accountAvatar"
+            class="account-avatar"
+            src="assets/logos/progression-series.png"
+            alt="User Avatar"
+          />
+        </div>
+
+        <div class="account-user-meta">
+          <div id="accountUsername" class="account-username">Not Logged In</div>
+          <div id="accountRole" class="account-role">Guest</div>
+        </div>
+
+        <div class="account-stats">
+          <div class="account-stat-row">
+            <span>Status</span>
+            <strong id="accountStatus">Offline</strong>
+          </div>
+
+          <div class="account-stat-row">
+            <span>Discord ID</span>
+            <strong id="accountDiscordId">---</strong>
+          </div>
+        </div>
+
+        <button id="logoutButton" class="menu-button logout-button" type="button">
+          Log Out
+        </button>
+      </div>
+    </div>
+  </aside>
+
+    <section class="menu-panel">
+    <div class="menu-buttons">
+      <a href="pages/phases.html" class="menu-button">Phases</a>
+      <a href="pages/scoreboard.html" class="menu-button">Scoreboard</a>
+      <a href="pages/promo-boxes.html" class="menu-button">Promotional Boxes</a>
+      <a href="pages/store.html" class="menu-button">Store</a>
+      <a href="pages/feature-cards.html" class="menu-button">Feature Cards</a>
+      <a href="pages/randomizer.html" class="menu-button">Random Number Generator</a>
+      <a href="pages/user-inventory.html" class="menu-button">User Inventory</a>
+      <a href="pages/admin.html" class="menu-button">Admin Panel</a>
+    </div>
+  </section>
+
+      <aside class="updates-panel">
+  <div class="updates-panel-inner">
+    <div class="updates-panel-header">
+      <h2>Patch History</h2>
+      <span class="updates-panel-subtitle">Development Log</span>
+    </div>
+
+    <div class="updates-scroll">
+      <div class="updates-list">
+
+        <article class="update-card">
+          <div class="update-card-top">
+            <span class="update-version">v0.1.2</span>
+            <span class="update-badge update-badge-live">Current</span>
+          </div>
+
+          <h3 class="update-title">Website Migration + Account System</h3>
+
+          <ul class="update-points">
+            <li>Moved the Progression App from a local tool into the live Gentlemen's Gaming website.</li>
+            <li>Added Discord login so users must authenticate before accessing the app.</li>
+            <li>Built the login overlay and logged-in user panel into the main dashboard.</li>
+            <li>Connected Supabase as the first live database layer for future league data.</li>
+            <li>Restructured the home layout into a three-column dashboard with user info, menu, and patch history.</li>
+          </ul>
+        </article>
+
+        <article class="update-card">
+          <div class="update-card-top">
+            <span class="update-version">v0.1.0</span>
+            <span class="update-badge">Launch</span>
+          </div>
+
+          <h3 class="update-title">Initial App Foundation</h3>
+
+          <ul class="update-points">
+            <li>Built the AIO Progression Series hub and main navigation structure.</li>
+            <li>Added pages for Phases, Scoreboard, Promotional Boxes, Store, Feature Cards, RNG, User Inventory, and Admin Panel.</li>
+            <li>Separated Promotional Boxes into their own dedicated app flow.</li>
+            <li>Laid the groundwork for the league economy, inventory tracking, and admin systems.</li>
+          </ul>
+        </article>
+
+      </div>
+    </div>
+  </div>
+</aside>
+    </main>
+
+    <footer class="gg-minimal-footer">
+
+  <div class="gg-footer-inner">
+
+    <div class="gg-footer-copy">
+      © Gentlemen's Gaming
+    </div>
+
+    <div class="gg-footer-discord">
+
+      <ul class="nk-social-links">
+
+        <li>
+          <a href="https://discord.gg/YOURINVITE" target="_blank">
+            <span class="fab fa-discord"></span>
+          </a>
+        </li>
+
+        <li>
+          <a href="https://discord.gg/YOURINVITE2" target="_blank">
+            <span class="fab fa-discord"></span>
+          </a>
+        </li>
+
+      </ul>
+
+    </div>
+
+  </div>
+
+</footer>
+  </div>
+
+  <script src="js/database.js"></script>
+<script src="js/auth.js"></script>
+<script src="js/app.js"></script>
+<script>
+  document.addEventListener("DOMContentLoaded", async () => {
+    const authGate = document.getElementById("authGate");
+    const loginButton = document.getElementById("discordLoginButton");
+    const authUserInfo = document.getElementById("authUserInfo");
+
+    const accountAvatar = document.getElementById("accountAvatar");
+    const accountUsername = document.getElementById("accountUsername");
+    const accountRole = document.getElementById("accountRole");
+    const accountStatus = document.getElementById("accountStatus");
+    const accountDiscordId = document.getElementById("accountDiscordId");
+    const logoutButton = document.getElementById("logoutButton");
+
+    function fillAccountPanelFromSession(session, userRecord = null) {
+      const user = session?.user;
+      if (!user) return;
+
+      const discordId =
+        userRecord?.discord_id ||
+        user.user_metadata?.provider_id ||
+        user.user_metadata?.sub ||
+        user.id ||
+        "---";
+
+      const username =
+        userRecord?.username ||
+        user.user_metadata?.preferred_username ||
+        user.user_metadata?.full_name ||
+        user.user_metadata?.name ||
+        user.user_metadata?.user_name ||
+        user.email ||
+        "Unknown User";
+
+      const avatar =
+        userRecord?.avatar ||
+        user.user_metadata?.avatar_url ||
+        user.user_metadata?.picture ||
+        "";
+
+      const role =
+        userRecord?.role ||
+        "player";
+
+      if (authUserInfo) {
+        authUserInfo.textContent = `Logged in as ${username} (${role})`;
+      }
+
+      if (accountUsername) accountUsername.textContent = username;
+      if (accountRole) accountRole.textContent = role;
+      if (accountStatus) accountStatus.textContent = "Online";
+      if (accountDiscordId) accountDiscordId.textContent = discordId;
+
+      if (accountAvatar && avatar) {
+        accountAvatar.src = avatar;
+      }
+    }
+
+    loginButton?.addEventListener("click", async () => {
+      if (!window.ggAuth) {
+        console.error("ggAuth is not loaded.");
+        alert("Login system failed to load.");
+        return;
+      }
+
+      await window.ggAuth.signInWithDiscord();
+    });
+
+    logoutButton?.addEventListener("click", async () => {
+      if (!window.ggAuth) return;
+      await window.ggAuth.signOut();
+    });
+
+    const session = await window.ggAuth.getSession();
+
+    if (!session) {
+      document.body.classList.add("page-loaded");
+      return;
+    }
+
+    let userRecord = null;
+
+    try {
+      userRecord = await window.ggAuth.ensureUserRecord(session);
+    } catch (error) {
+      console.error("ensureUserRecord failed:", error);
+    }
+
+    fillAccountPanelFromSession(session, userRecord);
+
+    authGate?.classList.add("auth-hidden");
+    document.body.classList.add("page-loaded");
+  });
+</script>
+</body>
+</html>

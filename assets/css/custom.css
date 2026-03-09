@@ -1,0 +1,722 @@
+/* PLACE YOU CUSTOM STYLES IN THIS FILE */
+
+.nk-navbar .nk-nav-logo img {
+    height: 72px;
+    width: auto;
+}
+
+.nk-navbar .nk-nav > li > a {
+    padding: 6px 16px;
+}
+
+/* Homepage - Prime Members */
+.gg-prime-card {
+    position: relative;
+    text-align: center;
+    padding: 28px 20px;
+    background: rgba(20, 20, 30, 0.85);
+    border: 1px solid rgba(167, 20, 185, 0.35);
+    border-radius: 10px;
+    box-shadow: 0 0 18px rgba(167, 20, 185, 0.16);
+    transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease;
+}
+
+.gg-prime-card:hover {
+    transform: translateY(-4px);
+    border-color: rgba(167, 20, 185, 0.7);
+    box-shadow: 0 0 28px rgba(167, 20, 185, 0.3);
+}
+
+.gg-prime-avatar-wrap {
+    width: 120px;
+    height: 120px;
+    margin: 0 auto 16px;
+    padding: 4px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, #ffffff 0%, #a714b9 100%);
+    box-shadow: 0 0 18px rgba(167, 20, 185, 0.35);
+}
+
+.gg-prime-avatar {
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    object-fit: cover;
+    display: block;
+    background: #181c23;
+}
+
+.gg-prime-name {
+    margin-bottom: 6px;
+    color: #fff;
+}
+
+.gg-prime-role {
+    font-size: 0.85rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: #a714b9;
+}
+
+/* Homepage - Hub Cards */
+.gg-hub-card {
+    position: relative;
+    display: block;
+    min-height: 240px;
+    overflow: hidden;
+    border-radius: 10px;
+    border: 1px solid rgba(255,255,255,0.08);
+    background: #181c23;
+    transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease;
+}
+
+.gg-hub-card:hover {
+    transform: translateY(-4px);
+    border-color: rgba(167, 20, 185, 0.65);
+    box-shadow: 0 0 26px rgba(167, 20, 185, 0.22);
+    text-decoration: none;
+}
+
+.gg-hub-card-bg {
+    position: absolute;
+    inset: 0;
+    background-size: cover;
+    background-position: center center;
+    transform: scale(1);
+    transition: transform 0.3s ease;
+}
+
+.gg-hub-card:hover .gg-hub-card-bg {
+    transform: scale(1.04);
+}
+
+.gg-hub-card-overlay {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(
+        to bottom,
+        rgba(10,10,16,0.08) 0%,
+        rgba(10,10,16,0.18) 35%,
+        rgba(10,10,16,0.45) 65%,
+        rgba(10,10,16,0.88) 100%
+    );
+}
+
+.gg-hub-card-content {
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    padding: 26px 24px;
+    z-index: 2;
+}
+
+.gg-hub-card-content h3 {
+    margin-bottom: 8px;
+    color: #fff;
+}
+
+.gg-hub-card-content p {
+    margin: 0;
+    color: #d7dbe0;
+}
+/* Change theme accent from red to Gentlemen's Gaming purple */
+
+.text-main-1 {
+    color: #a714b9 !important;
+}
+
+.nk-decorated-h-2 .text-main-1 {
+    color: #a714b9 !important;
+}
+
+a:hover {
+    color: #a714b9;
+}
+
+.nk-decorated-h-2 {
+    text-shadow: 0 0 8px rgba(167,20,185,0.35);
+}
+
+.gg-prime-members {
+    margin-top: 10px;
+}
+
+/* Prime member card entrance animation */
+.gg-prime-animate {
+    opacity: 0;
+    transform: translateY(24px);
+    animation: ggPrimeFadeUp 0.7s ease forwards;
+}
+
+/* Prime member card scroll animation */
+.gg-prime-animate {
+    opacity: 0;
+    transform: translateY(24px);
+    transition: opacity 0.7s ease, transform 0.7s ease;
+}
+
+.gg-prime-animate.gg-prime-visible {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* Replace GoodGames red accent with Gentlemen's Gaming purple */
+
+:root {
+    --gg-accent: #a714b9;
+}
+
+/* Navbar hover color */
+.nk-navbar .nk-nav > li > a:hover {
+    color: #a714b9 !important;
+}
+
+/* Navbar active page color */
+.nk-navbar .nk-nav > li.active > a {
+    color: #a714b9 !important;
+}
+
+/* Navbar underline / bottom highlight */
+.nk-navbar .nk-nav > li > a::after {
+    background: #a714b9 !important;
+}
+
+/* Dropdown hover color */
+.nk-navbar .dropdown > li > a:hover {
+    color: #a714b9 !important;
+}
+
+/* Dropdown highlight bar */
+.nk-navbar .dropdown > li > a:hover::before {
+    background: #a714b9 !important;
+}
+
+/* ===== NAVBAR PURPLE FIXES ===== */
+
+/* Remove the + after dropdown menu items */
+.nk-navbar .nk-nav .nk-drop-item > a::after {
+    content: "" !important;
+    display: none !important;
+}
+
+/* Main navbar hover / active color */
+.nk-navbar .nk-nav li > a:hover,
+.nk-navbar .nk-nav li > a.hover,
+.nk-navbar .nk-nav li.active > a {
+    color: #a714b9 !important;
+}
+
+/* Dropdown bottom border */
+.nk-navbar .nk-nav .dropdown {
+    border-bottom: 4px solid #a714b9 !important;
+}
+
+/* Image slider bottom border */
+.nk-image-slider {
+    border-bottom: 4px solid #a714b9 !important;
+}
+
+/* Optional: any main accent buttons */
+.nk-btn-color-main-1 {
+    background-color: #a714b9 !important;
+    border-color: #a714b9 !important;
+}
+
+.gg-header-quote {
+    font-size: 13px;
+    font-weight: 600;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    color: #a714b9;
+    text-shadow: 0 0 6px rgba(167, 20, 185, 0.35);
+    white-space: nowrap;
+
+    margin-top: 6px;
+}
+
+/* Homepage slider button fix */
+.nk-image-slider-item {
+    position: relative;
+}
+
+.nk-image-slider-item .nk-image-slider-content {
+    display: none !important;
+}
+
+.gg-slider-button {
+    position: absolute;
+    left: 50%;
+    bottom: 30px;
+    transform: translateX(-50%);
+    z-index: 20;
+    white-space: nowrap;
+}
+
+/* ===== Social Icons Size + Purple Theme ===== */
+
+/* ===== Top bar social icons only ===== */
+.nk-contacts-top .nk-social-links a {
+    background: rgba(255,255,255,0.08);
+    border: 1px solid rgba(167,20,185,0.35);
+    color: #ffffff;
+
+    transform: scale(2);
+    margin: 0 12px;
+
+    transition: transform 0.25s ease,
+                background 0.25s ease,
+                border-color 0.25s ease,
+                box-shadow 0.25s ease;
+}
+
+.nk-contacts-top .nk-social-links a:hover {
+    background: #a714b9 !important;
+    border-color: #a714b9 !important;
+    color: #ffffff !important;
+
+    transform: scale(3);
+
+    box-shadow: 0 0 14px rgba(167,20,185,0.65);
+}
+/* Keep icon white */
+
+.nk-social-links a:hover span {
+    color: #ffffff !important;
+}
+
+/* ===== Top bar spacing / centering fix ===== */
+
+.nk-contacts-top {
+    min-height: 68px;
+}
+
+.nk-contacts-top .container {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    min-height: 68px;
+}
+
+.nk-contacts-left,
+.nk-contacts-right {
+    display: flex;
+    align-items: center;
+    height: 100%;
+}
+
+/* Keep the larger icons centered inside the top bar */
+.nk-contacts-top .nk-social-links {
+    display: flex;
+    align-items: center;
+    gap: 18px;
+    margin: 0;
+    padding: 0;
+}
+
+.nk-contacts-top .nk-social-links a {
+    transform: scale(2);
+    transform-origin: center center;
+}
+
+.nk-contacts-top .nk-social-links a:hover {
+    transform: scale(3);
+}
+/* Quote sizing / centering */
+.gg-header-quote {
+    font-size: 16px;
+    line-height: 1;
+    margin: 0;
+    display: flex;
+    align-items: center;
+    height: 100%;
+}
+/* Recommended Games Category Badges */
+.nk-news-box-item-categories span,
+.nk-post-categories span {
+    background: linear-gradient(135deg, #7a1bd1, #a714b9);
+    border-radius: 6px;
+    padding: 4px 10px;
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+    box-shadow: 0 0 10px rgba(167,20,185,0.4);
+    transition: all 0.2s ease;
+}
+
+/* Hover glow */
+.nk-news-box-item:hover .nk-news-box-item-categories span,
+.nk-blog-post:hover .nk-post-categories span {
+    box-shadow: 0 0 14px rgba(167,20,185,0.8);
+    transform: scale(1.05);
+}
+
+/* Recommended Games - Left List Hover Effect */
+.nk-news-box-item {
+    transition: all 0.2s ease;
+}
+
+/* Hover highlight */
+.nk-news-box-item:hover {
+    background: rgba(167, 20, 185, 0.12);
+    border-left: 4px solid #a714b9;
+    padding-left: 12px;
+}
+
+/* Active selected game */
+.nk-news-box-item-active {
+    background: rgba(167, 20, 185, 0.18);
+    border-left: 4px solid #a714b9;
+}
+
+/* Title glow on hover */
+.nk-news-box-item:hover .nk-news-box-item-title {
+    color: #fff;
+    text-shadow: 0 0 8px rgba(167,20,185,0.6);
+}
+
+/* Remove red active color from Recommended Games */
+.nk-news-box-item-active {
+    background: rgba(167,20,185,0.22) !important;
+    border-left: 4px solid #a714b9 !important;
+}
+
+/* Remove the red theme color */
+.nk-news-box-item-active h3,
+.nk-news-box-item-active .nk-news-box-item-title {
+    color: #ffffff !important;
+}
+
+/* Make hover purple instead of red */
+.nk-news-box-item:hover {
+    background: rgba(167,20,185,0.15) !important;
+    border-left: 4px solid #a714b9 !important;
+}
+
+/* ===== Recommended Games active item force-purple fix ===== */
+
+/* Entire active row */
+.nk-news-box .nk-news-box-item.nk-news-box-item-active {
+    background: rgba(167, 20, 185, 0.22) !important;
+    border-left: 4px solid #a714b9 !important;
+    box-shadow: inset 0 0 0 1px rgba(167, 20, 185, 0.18) !important;
+}
+
+/* Kill any red backgrounds inside the active row */
+.nk-news-box .nk-news-box-item.nk-news-box-item-active *,
+.nk-news-box .nk-news-box-item.nk-news-box-item-active a,
+.nk-news-box .nk-news-box-item.nk-news-box-item-active div,
+.nk-news-box .nk-news-box-item.nk-news-box-item-active h3,
+.nk-news-box .nk-news-box-item.nk-news-box-item-active span {
+    background-color: transparent !important;
+}
+
+/* Keep thumbnail box untouched */
+.nk-news-box .nk-news-box-item.nk-news-box-item-active .nk-news-box-item-img {
+    background: transparent !important;
+}
+
+/* Text color on active row */
+.nk-news-box .nk-news-box-item.nk-news-box-item-active .nk-news-box-item-title,
+.nk-news-box .nk-news-box-item.nk-news-box-item-active h3,
+.nk-news-box .nk-news-box-item.nk-news-box-item-active p,
+.nk-news-box .nk-news-box-item.nk-news-box-item-active .nk-news-box-item-date,
+.nk-news-box .nk-news-box-item.nk-news-box-item-active .nk-news-box-item-url {
+    color: #ffffff !important;
+}
+
+/* Hover row purple too */
+.nk-news-box .nk-news-box-item:hover {
+    background: rgba(167, 20, 185, 0.14) !important;
+    border-left: 4px solid #a714b9 !important;
+}
+
+/* Optional: link accent in the active panel */
+.nk-news-box .nk-news-box-item.nk-news-box-item-active .nk-news-box-item-url {
+    color: #d98cff !important;
+}
+
+.nk-news-box .nk-news-box-item.nk-news-box-item-active::before,
+.nk-news-box .nk-news-box-item.nk-news-box-item-active::after {
+    background: transparent !important;
+    border-color: transparent !important;
+}
+
+/* Fix Recommended Games red highlight */
+
+.nk-news-box .nk-news-box-item.nk-news-box-item-active {
+    background: rgba(155, 89, 182, 0.25) !important;
+    border-left: 3px solid #9b59b6 !important;
+}
+
+/* hover highlight */
+.nk-news-box .nk-news-box-item:hover {
+    background: rgba(155, 89, 182, 0.15) !important;
+}
+
+/* category tags */
+.bg-main-1,
+.bg-main-2,
+.bg-main-3,
+.bg-main-4,
+.bg-main-5,
+.bg-main-6 {
+    background: #9b59b6 !important;
+}
+
+/* Recommended Games - bottom game title hover color */
+.nk-blog-post .nk-post-title a:hover {
+    color: #a714b9 !important;
+}
+
+/* also change the button hover accent */
+.nk-blog-post .nk-btn:hover {
+    background-color: #a714b9 !important;
+    border-color: #a714b9 !important;
+}
+
+/* optional: subtle glow to match the site */
+.nk-blog-post .nk-post-title a:hover {
+    text-shadow: 0 0 6px rgba(167,20,185,0.6);
+}
+
+/* Latest from the Community */
+.gg-community-feed {
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
+}
+
+.gg-community-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 16px;
+    padding: 18px 18px;
+    background: rgba(20, 20, 30, 0.78);
+    border: 1px solid rgba(167, 20, 185, 0.16);
+    border-radius: 10px;
+    transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease;
+}
+
+.gg-community-item:hover {
+    transform: translateY(-3px);
+    border-color: rgba(167, 20, 185, 0.55);
+    box-shadow: 0 0 18px rgba(167, 20, 185, 0.18);
+}
+
+.gg-community-icon {
+    flex: 0 0 44px;
+    width: 44px;
+    height: 44px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: linear-gradient(135deg, rgba(255,255,255,0.95) 0%, rgba(167,20,185,0.95) 100%);
+    color: #111;
+    box-shadow: 0 0 14px rgba(167, 20, 185, 0.22);
+    font-size: 16px;
+}
+
+.gg-community-content {
+    flex: 1;
+}
+
+.gg-community-content h4 {
+    margin-bottom: 6px;
+    color: #fff;
+    font-size: 1rem;
+}
+
+.gg-community-content p {
+    margin-bottom: 6px;
+    color: #d7dbe0;
+    font-size: 0.95rem;
+}
+
+.gg-community-meta {
+    font-size: 0.82rem;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    color: #a714b9;
+}
+
+.gg-community-feed {
+    max-height: 420px;
+    overflow-y: auto;
+    padding-right: 6px;
+}
+
+/* Scrollbar styling */
+.gg-community-feed::-webkit-scrollbar {
+    width: 6px;
+}
+
+.gg-community-feed::-webkit-scrollbar-thumb {
+    background: rgba(167,20,185,0.6);
+    border-radius: 3px;
+}
+
+/* Footer X feed */
+.nk-twitter .nk-twitter-text a,
+.nk-widget-post-2 .nk-post-title a {
+    color: #fff !important;
+    text-decoration: none;
+}
+
+.nk-twitter .nk-twitter-text a:hover,
+.nk-widget-post-2 .nk-post-title a:hover,
+.nk-twitter .nk-twitter-name a:hover {
+    color: #a714b9 !important;
+    text-shadow: 0 0 6px rgba(167,20,185,0.45);
+}
+
+.nk-twitter .nk-twitter-icon {
+    color: #a714b9 !important;
+}
+
+/* Footer On X placeholder feed */
+.gg-x-feed {
+    display: block;
+    height: 180px !important;
+    max-height: 180px !important;
+    overflow-y: auto !important;
+    overflow-x: hidden;
+    padding-right: 8px;
+}
+
+.gg-x-feed .nk-twitter {
+    padding: 10px 0 10px 22px;
+    margin: 0;
+    border-bottom: 1px solid rgba(255,255,255,0.06);
+}
+
+.gg-x-feed .nk-twitter:last-child {
+    border-bottom: 0;
+}
+
+.gg-x-feed .nk-twitter .nk-twitter-icon {
+    top: 12px;
+    left: 0;
+    font-size: 0.9rem;
+    color: #a714b9 !important;
+}
+
+.gg-x-feed .nk-twitter .nk-twitter-text {
+    font-size: 0.86rem;
+    line-height: 1.35;
+}
+
+.gg-x-feed .nk-twitter .nk-twitter-text a {
+    color: #fff !important;
+    text-decoration: none;
+}
+
+.gg-x-feed .nk-twitter .nk-twitter-text a:hover,
+.gg-x-feed .nk-twitter .nk-twitter-name a:hover {
+    color: #a714b9 !important;
+    text-shadow: 0 0 6px rgba(167,20,185,0.45);
+}
+
+.gg-x-feed .nk-twitter .nk-twitter-name,
+.gg-x-feed .nk-twitter .nk-twitter-date {
+    font-size: 0.72rem;
+}
+
+.gg-x-feed::-webkit-scrollbar {
+    width: 6px;
+}
+
+.gg-x-feed::-webkit-scrollbar-thumb {
+    background: rgba(167,20,185,0.65);
+    border-radius: 3px;
+}
+
+.gg-x-feed::-webkit-scrollbar-track {
+    background: rgba(255,255,255,0.06);
+}
+
+/* Tighten footer widget spacing */
+.nk-footer .nk-widget-title {
+    margin-bottom: 12px;
+}
+
+.nk-footer .nk-widget-highlighted .nk-widget-content {
+    padding: 16px 18px;
+}
+
+.nk-footer .nk-widget-highlighted .nk-widget-title {
+    padding: 16px 18px;
+}
+
+.footer-row{
+display:flex;
+justify-content:space-between;
+align-items:center;
+}
+
+.footer-copy{
+color:#ccc;
+}
+
+.footer-social ul{
+display:flex;
+gap:14px;
+margin:0;
+padding:0;
+list-style:none;
+}
+
+/* Keep footer socials normal-sized */
+.nk-footer .nk-social-links a,
+.nk-copyright .nk-social-links a {
+    transform: none !important;
+    margin: 0 !important;
+}
+
+.nk-footer .nk-social-links a:hover,
+.nk-copyright .nk-social-links a:hover {
+    transform: none !important;
+}
+
+/* Yu-Gi-Oh hub hero spacing */
+.gg-ygo-hero-copy {
+    padding-left: 28px;
+    padding-right: 10px;
+}
+
+.gg-ygo-hero-copy .nk-title.display-4 {
+    line-height: 1.05;
+    margin-bottom: 0;
+}
+
+.gg-ygo-hero-copy p {
+    margin-bottom: 16px;
+}
+
+.nk-box-3 ul li {
+    margin-bottom: 8px;
+}
+
+/* Sticky footer only for short hub pages */
+body.gg-sticky-page {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+body.gg-sticky-page .nk-main {
+    flex: 1 0 auto;
+    display: flex;
+    flex-direction: column;
+}
+
+body.gg-sticky-page .gg-page-fill {
+    flex: 1 0 auto;
+}
+
+/* keep footer spacing normal on the sticky page */
+body.gg-sticky-page .nk-footer {
+    margin-top: 0;
+}
