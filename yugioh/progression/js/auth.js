@@ -85,11 +85,12 @@ const ADMIN_DISCORD_ID = "475880707403546644";
         String(discordId) === String(ADMIN_DISCORD_ID) ? "admin" : "player";
 
       const payload = {
+        auth_user_id: user.id,
         discord_id: String(discordId),
         username,
         avatar,
         role
-      };
+     };
 
       const { data: existing, error: existingError } = await client
         .from("users")
