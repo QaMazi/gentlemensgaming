@@ -9,7 +9,7 @@ document.addEventListener("DOMContentLoaded", async () => {
   }
 
   initializePageIntro();
-  loadPatchNotes();
+  await loadPatchNotes();
 });
 
 function initializeMenuButtons() {
@@ -55,17 +55,15 @@ function initializePageIntro() {
 }
 
 /* =========================
-   PATCH NOTES
+   PATCH NOTES / VERSION TAG
 ========================= */
 
 async function loadPatchNotes() {
   const container = document.getElementById("updatesList");
   const versionTag = document.querySelector(".version-tag");
 
-  if (!container) return;
-
   try {
-    const response = await fetch("data/patch-notes.json", {
+    const response = await fetch(getPatchNotesPath(), {
       cache: "no-store"
     });
 
@@ -75,6 +73,12 @@ async function loadPatchNotes() {
 
     const data = await response.json();
     const patches = Array.isArray(data.patches) ? data.patches : [];
+
+    if (versionTag && patches[0]?.version) {
+      versionTag.textContent = patches[0].version;
+    }
+
+    if (!container) return;
 
     if (!patches.length) {
       container.innerHTML = `
@@ -86,19 +90,22 @@ async function loadPatchNotes() {
     }
 
     renderPatchNotes(patches);
-
-    if (versionTag && patches[0]?.version) {
-      versionTag.textContent = patches[0].version;
-    }
   } catch (err) {
     console.error("Patch notes failed to load:", err);
 
-    container.innerHTML = `
-      <div class="update-error">
-        Failed to load patch history.
-      </div>
-    `;
+    if (container) {
+      container.innerHTML = `
+        <div class="update-error">
+          Failed to load patch history.
+        </div>
+      `;
+    }
   }
+}
+
+function getPatchNotesPath() {
+  const path = window.location.pathname;
+  return path.includes("/pages/") ? "../data/patch-notes.json" : "data/patch-notes.json";
 }
 
 function renderPatchNotes(patches) {
@@ -203,7 +210,6 @@ function escapeHtml(value) {
 
 async function initializeProgressionApp() {
   if (!window.ggAuth || !window.db) {
-    console.warn("Progression bootstrap skipped: auth or db missing.");
     return;
   }
 
@@ -257,11 +263,9 @@ async function initializeProgressionApp() {
   window.progressionState.session = activeSession;
 
   updateAccountPanel(user, authSession);
-
   authGate?.classList.add("auth-hidden");
 
   if (!activeSession) {
-    console.log("No current/active progression session found.");
     return;
   }
 
@@ -290,13 +294,11 @@ async function initializeProgressionApp() {
       }
     }
   );
-
-  console.log("window.progressionState ready:", window.progressionState);
 }
 
 async function refreshProgressionState() {
   const session = window.progressionState?.session;
-  if (!session) return;
+  if (!session || !window.db) return;
 
   const [playerState, sessionPlayers, activityFeed, contentState] =
     await Promise.all([
@@ -394,6 +396,8 @@ function applyLockStateToMenu(contentState) {
 
 window.progressionApp = {
   async refresh() {
+    if (!window.db) return window.progressionState;
+
     const session = await window.db.getActiveSession();
     window.progressionState.session = session;
 

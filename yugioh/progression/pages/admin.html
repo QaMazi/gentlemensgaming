@@ -4,296 +4,139 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Admin Panel - YGO Progression Series App</title>
-  <style>
-    * { box-sizing: border-box; }
-    body {
-      margin: 0;
-      font-family: Arial, Helvetica, sans-serif;
-      background: linear-gradient(180deg, #120c24 0%, #090611 100%);
-      color: #fff;
-    }
-    .page {
-      max-width: 1400px;
-      margin: 0 auto;
-      padding: 24px;
-    }
-    .topbar {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      margin-bottom: 20px;
-    }
-    .back-button {
-      color: #fff;
-      text-decoration: none;
-      background: rgba(255,255,255,0.08);
-      border: 1px solid rgba(255,255,255,0.14);
-      border-radius: 10px;
-      padding: 10px 14px;
-      font-weight: 700;
-    }
-    .version-tag {
-      font-size: 12px;
-      opacity: 0.7;
-    }
-    .title {
-      font-size: 34px;
-      font-weight: 800;
-      margin: 0 0 10px;
-    }
-    .subtitle {
-      margin: 0 0 24px;
-      color: rgba(255,255,255,0.78);
-      line-height: 1.5;
-    }
-    .layout {
-      display: grid;
-      grid-template-columns: 1fr 360px;
-      gap: 20px;
-      align-items: start;
-    }
-    .column {
-      display: flex;
-      flex-direction: column;
-      gap: 20px;
-    }
-    .panel {
-      background: rgba(255,255,255,0.05);
-      border: 1px solid rgba(255,255,255,0.1);
-      border-radius: 18px;
-      padding: 20px;
-      box-shadow: 0 12px 30px rgba(0,0,0,0.24);
-    }
-    .panel h2, .panel h3, .panel h4 {
-      margin-top: 0;
-    }
-    .panel-header {
-      margin-bottom: 16px;
-      padding-bottom: 10px;
-      border-bottom: 1px solid rgba(255,255,255,0.08);
-    }
-    .grid-2 {
-      display: grid;
-      grid-template-columns: 1fr 220px;
-      gap: 14px;
-    }
-    .grid-inline {
-      display: grid;
-      grid-template-columns: 220px 1fr;
-      gap: 14px;
-      align-items: end;
-    }
-    .field {
-      display: flex;
-      flex-direction: column;
-      gap: 8px;
-    }
-    label {
-      font-size: 14px;
-      font-weight: 700;
-      color: rgba(255,255,255,0.9);
-    }
-    input[type="number"], select {
-      width: 100%;
-      padding: 12px 14px;
-      border-radius: 10px;
-      border: 1px solid rgba(255,255,255,0.15);
-      background: rgba(0,0,0,0.25);
-      color: #fff;
-      font-size: 15px;
-      outline: none;
-    }
-    .status-card {
-      background: rgba(255,255,255,0.04);
-      border: 1px solid rgba(255,255,255,0.08);
-      border-radius: 14px;
-      padding: 14px 16px;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-    }
-    .status-label {
-      font-size: 12px;
-      text-transform: uppercase;
-      letter-spacing: 1px;
-      opacity: 0.7;
-      margin-bottom: 8px;
-    }
-    .status-value {
-      font-size: 32px;
-      font-weight: 800;
-      color: #ffd36a;
-    }
-    .actions, .data-actions {
-      display: flex;
-      flex-direction: column;
-      gap: 12px;
-    }
-    button {
-      padding: 12px 14px;
-      border: none;
-      border-radius: 12px;
-      font-weight: 800;
-      cursor: pointer;
-      font-size: 14px;
-    }
-    .primary {
-      background: linear-gradient(90deg, #ff5c5c, #ff995c);
-      color: white;
-    }
-    .secondary {
-      background: rgba(255,255,255,0.09);
-      color: white;
-      border: 1px solid rgba(255,255,255,0.12);
-    }
-    .danger {
-      background: #7a1e1e;
-      color: white;
-    }
-    .message {
-      min-height: 22px;
-      margin-top: 14px;
-      font-size: 14px;
-      font-weight: 700;
-      color: #ff8b8b;
-    }
-    .file-label {
-      display: inline-block;
-      padding: 12px 14px;
-      border-radius: 10px;
-      background: rgba(255,255,255,0.06);
-      border: 1px solid rgba(255,255,255,0.1);
-      text-align: center;
-      font-weight: 700;
-      cursor: pointer;
-    }
-    .file-input { display: none; }
-    @media (max-width: 1050px) {
-      .layout { grid-template-columns: 1fr; }
-    }
-    @media (max-width: 760px) {
-      .grid-2, .grid-inline { grid-template-columns: 1fr; }
-    }
-  </style>
+  <link rel="stylesheet" href="../css/style.css" />
 </head>
-<body>
-  <div class="page">
-    <div class="topbar">
-      <a href="../index.html" class="back-button">← Back to Main Menu</a>
-      <div class="version-tag">v0.1.0</div>
-    </div>
-
-    <h1 class="title">Admin Panel</h1>
-    <p class="subtitle">
-      Manage player credits, grant keys and feature tokens, remove inventory items,
-      and import or export save data.
-    </p>
-
-    <div class="layout">
-      <div class="column">
-        <section class="panel">
-          <div class="panel-header">
-            <h3>Player Controls</h3>
-          </div>
-
-          <div class="grid-2">
-            <div class="field">
-              <label for="adminPlayerSelect">Selected Player</label>
-              <select id="adminPlayerSelect">
-                <option value="1">QaMazi</option>
-                <option value="2">SKX</option>
-                <option value="3">Silverwolf</option>
-                <option value="4">Blu</option>
-                <option value="5">Nightmare</option>
-                <option value="6">N/A</option>
-              </select>
-            </div>
-
-            <div class="status-card">
-              <span class="status-label">Current Credits</span>
-              <div id="adminCurrentCredits" class="status-value">100</div>
-            </div>
-          </div>
-
-          <div style="height:20px"></div>
-
-          <h4>Edit Credits</h4>
-          <div class="grid-inline">
-            <div class="field">
-              <label for="adminCreditAmount">Amount</label>
-              <input id="adminCreditAmount" type="number" min="0" value="10" />
-            </div>
-
-            <div class="actions">
-              <button id="adminAddCreditsButton" class="primary" type="button">Add Credits</button>
-              <button id="adminRemoveCreditsButton" class="secondary" type="button">Remove Credits</button>
-              <button id="adminSetCreditsButton" class="secondary" type="button">Set Credits</button>
-            </div>
-          </div>
-
-          <div style="height:20px"></div>
-
-          <h4>Give Rewards</h4>
-          <div class="actions">
-            <button id="adminGiveRandomKeyButton" class="primary" type="button">Give Random Key</button>
-
-            <div class="field">
-              <label for="adminSpecificKeyBoxSelect">Specific Key Box</label>
-              <select id="adminSpecificKeyBoxSelect">
-                <option value="1">Arcade Relics</option>
-                <option value="2">Chaos Gamble</option>
-                <option value="3">Vault of Supremacy</option>
-              </select>
-            </div>
-
-            <button id="adminGiveSpecificKeyButton" class="primary" type="button">Give Specific Key</button>
-            <button id="adminGiveFeatureTokenButton" class="primary" type="button">Give Feature Token</button>
-          </div>
-
-          <div id="adminMessage" class="message"></div>
-        </section>
-      </div>
-
-      <div class="column">
-        <section class="panel">
-          <div class="panel-header">
-            <h3>Inventory Manager</h3>
-          </div>
-
-          <div class="field">
-            <label for="adminInventorySelect">Remove Inventory Item</label>
-            <select id="adminInventorySelect">
-              <option value="">No items available</option>
-            </select>
-          </div>
-
-          <div style="height:12px"></div>
-
-          <button id="adminRemoveInventoryItemButton" class="danger" type="button">
-            Remove Selected Item
-          </button>
-        </section>
-
-        <section class="panel">
-          <div class="panel-header">
-            <h3>App Data</h3>
-          </div>
-
-          <div class="data-actions">
-            <button id="adminExportSaveButton" class="primary" type="button">Export Save</button>
-
-            <label for="adminImportSaveInput" class="file-label">Choose Save File</label>
-            <input id="adminImportSaveInput" class="file-input" type="file" accept=".json" />
-
-            <button id="adminImportSaveButton" class="secondary" type="button">Import Save</button>
-            <button id="adminResetAllDataButton" class="danger" type="button">Reset All Data</button>
-          </div>
-        </section>
-      </div>
-    </div>
+<body class="subpage-body">
+  <div class="video-background">
+    <video autoplay muted loop playsinline id="bgVideo">
+      <source src="../assets/video/background.mp4" type="video/mp4" />
+    </video>
+    <div class="video-overlay"></div>
   </div>
 
-  <script src="../js/playerState.js"></script>
+  <div class="app-shell subpage-shell">
+    <header class="subpage-header">
+      <a href="../index.html" class="back-button">← Back to Main Menu</a>
+      <div class="version-tag">v0.1.0</div>
+      <h1 class="subpage-title">Admin Panel</h1>
+    </header>
+
+    <main class="subpage-content admin-page-content">
+      <section class="admin-page-shell">
+        <article class="admin-intro-panel">
+          <h2>League Management</h2>
+          <p>
+            Manage player credits, grant keys and tokens, remove inventory items,
+            and export or import local progression save data.
+          </p>
+        </article>
+
+        <section class="admin-layout">
+          <div class="admin-main-column">
+            <section class="admin-panel">
+              <div class="admin-panel-header">
+                <h3>Player Controls</h3>
+              </div>
+
+              <div class="admin-form-grid">
+                <div class="admin-field">
+                  <label for="adminPlayerSelect">Selected Player</label>
+                  <select id="adminPlayerSelect" class="admin-select">
+                    <option value="1">QaMazi</option>
+                    <option value="2">SKX</option>
+                    <option value="3">Silverwolf</option>
+                    <option value="4">Blu</option>
+                    <option value="5">Nightmare</option>
+                    <option value="6">N/A</option>
+                  </select>
+                </div>
+
+                <div class="admin-status-card">
+                  <span class="admin-status-label">Current Credits</span>
+                  <div id="adminCurrentCredits" class="admin-status-value">100</div>
+                </div>
+              </div>
+
+              <div class="admin-subsection">
+                <h4>Edit Credits</h4>
+                <div class="admin-inline-grid">
+                  <div class="admin-field">
+                    <label for="adminCreditAmount">Amount</label>
+                    <input id="adminCreditAmount" class="admin-number-input" type="number" min="0" value="10" />
+                  </div>
+
+                  <div class="admin-action-group">
+                    <button id="adminAddCreditsButton" class="promo-action-button" type="button">Add Credits</button>
+                    <button id="adminRemoveCreditsButton" class="secondary-action-button" type="button">Remove Credits</button>
+                    <button id="adminSetCreditsButton" class="secondary-action-button" type="button">Set Credits</button>
+                  </div>
+                </div>
+              </div>
+
+              <div class="admin-subsection">
+                <h4>Give Rewards</h4>
+                <div class="admin-action-group">
+                  <button id="adminGiveRandomKeyButton" class="promo-action-button" type="button">Give Random Key</button>
+
+                  <div class="admin-specific-key-wrap">
+                    <label for="adminSpecificKeyBoxSelect">Specific Key Box</label>
+                    <select id="adminSpecificKeyBoxSelect" class="admin-select">
+                      <option value="1">Arcade Relics</option>
+                      <option value="2">Chaos Gamble</option>
+                      <option value="3">Vault of Supremacy</option>
+                    </select>
+                  </div>
+
+                  <button id="adminGiveSpecificKeyButton" class="promo-action-button" type="button">Give Specific Key</button>
+                  <button id="adminGiveFeatureTokenButton" class="promo-action-button" type="button">Give Feature Token</button>
+                </div>
+              </div>
+
+              <div id="adminMessage" class="admin-message"></div>
+            </section>
+          </div>
+
+          <aside class="admin-side-column">
+            <section class="admin-panel">
+              <div class="admin-panel-header">
+                <h3>Inventory Manager</h3>
+              </div>
+
+              <div class="admin-field">
+                <label for="adminInventorySelect">Remove Inventory Item</label>
+                <select id="adminInventorySelect" class="admin-select">
+                  <option value="">No items available</option>
+                </select>
+              </div>
+
+              <button id="adminRemoveInventoryItemButton" class="secondary-action-button danger-button admin-full-button" type="button">
+                Remove Selected Item
+              </button>
+            </section>
+
+            <section class="admin-panel">
+              <div class="admin-panel-header">
+                <h3>App Data</h3>
+              </div>
+
+              <div class="admin-data-actions">
+                <button id="adminExportSaveButton" class="promo-action-button" type="button">Export Save</button>
+
+                <label for="adminImportSaveInput" class="admin-file-label">Choose Save File</label>
+                <input id="adminImportSaveInput" class="admin-file-input" type="file" accept=".json" />
+
+                <button id="adminImportSaveButton" class="secondary-action-button" type="button">Import Save</button>
+                <button id="adminResetAllDataButton" class="secondary-action-button danger-button" type="button">Reset All Data</button>
+              </div>
+            </section>
+          </aside>
+        </section>
+      </section>
+    </main>
+  </div>
+
+  <script src="../js/app.js"></script>
+  <script src="../js/playerstate.js"></script>
   <script src="../js/admin.js"></script>
 </body>
 </html>

@@ -9,16 +9,20 @@
   --panel-bg: rgba(20, 20, 20, 0.72);
   --panel-bg-solid: #151515;
   --panel-border: rgba(255, 255, 255, 0.05);
-  --panel-border-strong: #2a2a2a;
+  --panel-border-strong: rgba(255, 255, 255, 0.12);
 
   --accent-red: #ff4a4a;
   --accent-red-soft: rgba(255, 74, 74, 0.25);
   --accent-red-glow: rgba(255, 70, 70, 0.12);
+  --accent-gold: #ffd36a;
 
   --text-main: #f2f2f2;
-  --text-dim: #b5b5b5;
+  --text-dim: rgba(255, 255, 255, 0.72);
+  --text-muted: rgba(255, 255, 255, 0.84);
 
   --radius: 8px;
+  --radius-lg: 16px;
+  --shadow-panel: 0 20px 60px rgba(0, 0, 0, 0.45);
   --transition-fast: 0.18s ease;
 }
 
@@ -30,6 +34,7 @@
   box-sizing: border-box;
   margin: 0;
   padding: 0;
+  font-family: Arial, Helvetica, sans-serif;
 }
 
 html,
@@ -37,20 +42,25 @@ body {
   min-height: 100%;
   background: var(--bg-main);
   color: var(--text-main);
-  font-family: system-ui, "Segoe UI", Roboto, Arial, sans-serif;
 }
 
 body {
   overflow-x: hidden;
+  opacity: 0;
+  transition: opacity 0.25s ease;
+}
+
+body.page-loaded {
+  opacity: 1;
+}
+
+body.page-fade-out {
+  opacity: 0;
 }
 
 a {
   text-decoration: none;
   color: inherit;
-}
-
-ul {
-  padding-left: 20px;
 }
 
 img {
@@ -62,34 +72,179 @@ img {
    3. BACKGROUND VIDEO
 ====================================================== */
 
-.video-background,
-#bgVideo {
+.video-background {
   position: fixed;
   inset: 0;
-}
-
-.video-background {
   z-index: -2;
+  overflow: hidden;
 }
 
 #bgVideo {
+  position: absolute;
+  inset: 0;
   width: 100%;
   height: 100%;
   object-fit: cover;
 }
 
-.video-overlay,
-body::after {
-  content: "";
-  position: fixed;
+.video-overlay {
+  position: absolute;
   inset: 0;
   background: var(--bg-overlay);
-  z-index: -1;
-  pointer-events: none;
 }
 
 /* ======================================================
-   4. APP SHELL / HEADER / LOGO
+   4. SHARED UI / PANELS / BUTTONS
+====================================================== */
+
+.panel-glass,
+.account-card,
+.updates-panel-inner,
+.auth-card,
+.rng-panel,
+.phases-intro-panel,
+.ruleset-banner,
+.phase-card,
+.scoreboard-intro-panel,
+.scoreboard-table-panel,
+.placement-panel,
+.placement-points-reference,
+.feature-intro-panel,
+.feature-roll-panel,
+.feature-recent-panel,
+.feature-status-card,
+.feature-recent-item,
+.store-intro-panel,
+.store-player-bar,
+.store-items-panel,
+.store-tradein-panel,
+.store-rules-panel,
+.inventory-intro-panel,
+.inventory-player-card,
+.admin-intro-panel,
+.admin-panel,
+.admin-status-card {
+  background: var(--panel-bg);
+  backdrop-filter: blur(10px);
+  border: 1px solid var(--panel-border);
+  border-radius: var(--radius-lg);
+  box-shadow:
+    0 0 0 1px rgba(255, 255, 255, 0.02) inset,
+    var(--shadow-panel),
+    0 0 25px var(--accent-red-glow);
+}
+
+.account-card:hover,
+.updates-panel-inner:hover,
+.rng-panel:hover,
+.scoreboard-table-panel:hover,
+.placement-panel:hover,
+.store-items-panel:hover,
+.feature-roll-panel:hover,
+.feature-recent-panel:hover {
+  box-shadow:
+    0 0 0 1px rgba(255, 255, 255, 0.04) inset,
+    0 24px 70px rgba(0, 0, 0, 0.5),
+    0 0 34px rgba(255, 70, 70, 0.1);
+}
+
+.menu-button,
+.promo-action-button,
+.secondary-action-button,
+.feature-category-button,
+.back-button,
+.admin-file-label {
+  transition:
+    transform var(--transition-fast),
+    border-color var(--transition-fast),
+    box-shadow var(--transition-fast),
+    background var(--transition-fast);
+}
+
+.menu-button,
+.promo-action-button,
+.secondary-action-button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  padding: 14px 20px;
+  border-radius: 12px;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.menu-button {
+  background: rgba(21, 21, 21, 0.82);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  color: var(--text-main);
+  font-size: 22px;
+  padding: 18px 24px;
+  white-space: nowrap;
+}
+
+.menu-button:hover,
+.back-button:hover,
+.secondary-action-button:hover,
+.feature-category-button:hover,
+.admin-file-label:hover {
+  transform: translateY(-2px);
+  border-color: var(--accent-red);
+  box-shadow:
+    0 12px 30px rgba(0, 0, 0, 0.45),
+    0 0 16px rgba(255, 74, 74, 0.18);
+}
+
+.menu-button:hover,
+.back-button:hover {
+  background: rgba(40, 15, 15, 0.88);
+}
+
+.menu-button.is-locked {
+  opacity: 0.45;
+  cursor: not-allowed;
+  pointer-events: none;
+}
+
+.promo-action-button {
+  border: none;
+  background: linear-gradient(90deg, #ff5c5c, #ff995c);
+  color: white;
+}
+
+.secondary-action-button {
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  background: rgba(45, 45, 45, 0.95);
+  color: white;
+  font-size: 15px;
+}
+
+.secondary-action-button:hover {
+  background: rgba(65, 65, 65, 0.95);
+}
+
+.danger-button {
+  border-color: rgba(255, 80, 80, 0.3);
+  background: rgba(95, 20, 20, 0.95);
+}
+
+.danger-button:hover {
+  background: rgba(130, 26, 26, 0.95);
+}
+
+.back-button {
+  position: absolute;
+  left: 32px;
+  top: 24px;
+  color: white;
+  background: rgba(20, 20, 20, 0.85);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  padding: 10px 16px;
+  border-radius: 8px;
+}
+
+/* ======================================================
+   5. HOME PAGE SHELL
 ====================================================== */
 
 .app-shell {
@@ -135,10 +290,6 @@ body::after {
   animation: logoFloat 4.8s ease-in-out infinite;
 }
 
-/* ======================================================
-   5. MAIN LAYOUT
-====================================================== */
-
 .main-menu-layout {
   flex: 1;
   display: grid;
@@ -155,75 +306,11 @@ body::after {
   width: 320px;
 }
 
-/* ======================================================
-   6. SHARED GLASS PANELS
-====================================================== */
-
-.account-card,
-.updates-panel-inner,
-.auth-card {
-  background: var(--panel-bg);
-  backdrop-filter: blur(10px);
-  border: 1px solid var(--panel-border);
-  border-radius: 16px;
-  box-shadow:
-    0 0 0 1px rgba(255, 255, 255, 0.02) inset,
-    0 20px 60px rgba(0, 0, 0, 0.6),
-    0 0 25px var(--accent-red-glow);
-}
-
-.account-card:hover,
-.updates-panel-inner:hover {
-  box-shadow:
-    0 0 0 1px rgba(255, 255, 255, 0.04) inset,
-    0 25px 70px rgba(0, 0, 0, 0.65),
-    0 0 40px rgba(255, 70, 70, 0.12);
-}
-
-/* ======================================================
-   7. MENU BUTTONS
-====================================================== */
-
 .menu-buttons {
   width: 100%;
   display: flex;
   flex-direction: column;
   gap: 20px;
-}
-
-.menu-button {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 100%;
-  padding: 18px 24px;
-  background: rgba(21, 21, 21, 0.82);
-  border: 1px solid rgba(255, 255, 255, 0.12);
-  border-radius: var(--radius);
-  color: var(--text-main);
-  font-size: 22px;
-  font-weight: 600;
-  letter-spacing: 0.02em;
-  transition:
-    transform var(--transition-fast),
-    border-color var(--transition-fast),
-    box-shadow var(--transition-fast),
-    background var(--transition-fast);
-}
-
-.menu-button:hover {
-  transform: translateY(-2px);
-  background: rgba(40, 15, 15, 0.88);
-  border-color: var(--accent-red);
-  box-shadow:
-    0 12px 30px rgba(0, 0, 0, 0.45),
-    0 0 16px rgba(255, 74, 74, 0.18);
-}
-
-.menu-button.is-locked {
-  opacity: 0.45;
-  cursor: not-allowed;
-  pointer-events: none;
 }
 
 .logout-button {
@@ -232,7 +319,7 @@ body::after {
 }
 
 /* ======================================================
-   8. ACCOUNT PANEL
+   6. ACCOUNT PANEL
 ====================================================== */
 
 .account-card {
@@ -282,7 +369,7 @@ body::after {
 
 .account-role {
   font-size: 14px;
-  color: #ffd36a;
+  color: var(--accent-gold);
   text-transform: uppercase;
   letter-spacing: 1px;
   font-weight: 700;
@@ -317,7 +404,7 @@ body::after {
 }
 
 /* ======================================================
-   9. PATCH PANEL
+   7. PATCH PANEL
 ====================================================== */
 
 .updates-panel {
@@ -390,13 +477,11 @@ body::after {
   color: rgba(255, 255, 255, 0.65);
 }
 
-/* patch cards */
-
 .update-card {
   position: relative;
   overflow: hidden;
   background: rgba(26, 26, 26, 0.92);
-  border: 1px solid var(--panel-border-strong);
+  border: 1px solid rgba(255, 255, 255, 0.08);
   border-radius: var(--radius);
   padding: 14px 16px;
   transition:
@@ -547,6 +632,7 @@ body::after {
 }
 
 .update-points {
+  padding-left: 18px;
   display: flex;
   flex-direction: column;
   gap: 8px;
@@ -560,51 +646,890 @@ body::after {
 }
 
 /* ======================================================
-   10. AUTH GATE
+   8. SUBPAGE FRAME
 ====================================================== */
 
-.auth-gate {
-  position: fixed;
-  inset: 0;
-  z-index: 9999;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  padding: 24px;
-  background: rgba(5, 5, 10, 0.88);
-  backdrop-filter: blur(8px);
+.subpage-body {
+  min-height: 100vh;
 }
 
-.auth-card {
-  width: min(460px, 100%);
-  padding: 28px;
+.subpage-shell {
+  min-height: 100vh;
+}
+
+.subpage-header {
+  position: relative;
+  padding: 24px 32px 10px;
   text-align: center;
 }
 
-.auth-card h2 {
-  margin-bottom: 12px;
-  font-size: 30px;
+.subpage-title {
+  font-size: 42px;
+  font-weight: 700;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  margin-top: 12px;
+  text-shadow: 0 0 14px rgba(255, 80, 80, 0.35);
 }
 
-.auth-card p {
-  margin-bottom: 20px;
-  color: rgba(255, 255, 255, 0.8);
-  line-height: 1.5;
-}
-
-.auth-user {
-  margin-top: 16px;
-  font-size: 14px;
-  color: rgba(255, 255, 255, 0.75);
-}
-
-.auth-hidden {
-  display: none !important;
+.subpage-content {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 30px;
 }
 
 /* ======================================================
-   11. FOOTER
+   9. RNG PAGE
 ====================================================== */
+
+.rng-panel {
+  width: 100%;
+  max-width: 620px;
+  padding: 32px;
+}
+
+.rng-panel-header {
+  text-align: center;
+  margin-bottom: 28px;
+}
+
+.rng-panel-header h2 {
+  font-size: 28px;
+  margin-bottom: 8px;
+}
+
+.rng-panel-header p {
+  font-size: 15px;
+  color: rgba(255, 255, 255, 0.78);
+}
+
+.rng-form {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+
+.rng-field {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.rng-field label {
+  font-size: 15px;
+  font-weight: 700;
+  letter-spacing: 0.3px;
+}
+
+.rng-field input {
+  width: 100%;
+  padding: 14px 16px;
+  border-radius: 10px;
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  background: rgba(28, 28, 28, 0.95);
+  color: white;
+  font-size: 18px;
+  outline: none;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.rng-field input:focus,
+.placement-select:focus,
+.store-player-select:focus,
+.store-inline-select:focus,
+.feature-select:focus,
+.feature-number-input:focus,
+.admin-select:focus,
+.admin-number-input:focus {
+  border-color: rgba(255, 80, 80, 0.9);
+  box-shadow: 0 0 0 3px rgba(255, 80, 80, 0.14);
+}
+
+.rng-generate-button {
+  margin-top: 6px;
+}
+
+.rng-result-wrap {
+  margin-top: 28px;
+  text-align: center;
+}
+
+.rng-result-label {
+  display: block;
+  font-size: 14px;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  color: rgba(255, 255, 255, 0.7);
+  margin-bottom: 12px;
+}
+
+.rng-result-display {
+  min-height: 110px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 52px;
+  font-weight: 800;
+  border-radius: 16px;
+  background: linear-gradient(
+    180deg,
+    rgba(50, 10, 10, 0.85),
+    rgba(15, 15, 15, 0.95)
+  );
+  border: 1px solid rgba(255, 80, 80, 0.28);
+  text-shadow: 0 0 16px rgba(255, 90, 90, 0.3);
+}
+
+.rng-error-message {
+  min-height: 22px;
+  margin-top: 16px;
+  text-align: center;
+  color: #ff6b6b;
+  font-size: 14px;
+  font-weight: 700;
+}
+
+/* ======================================================
+   10. PHASES PAGE
+====================================================== */
+
+.phases-page-content {
+  align-items: flex-start;
+  padding-top: 10px;
+  padding-bottom: 30px;
+}
+
+.phases-page-shell {
+  width: 100%;
+  max-width: 1500px;
+  display: flex;
+  flex-direction: column;
+  gap: 22px;
+}
+
+.phases-intro-panel,
+.ruleset-banner,
+.phase-card {
+  box-shadow: var(--shadow-panel);
+}
+
+.phases-intro-panel,
+.ruleset-banner,
+.phase-card,
+.scoreboard-intro-panel,
+.scoreboard-table-panel,
+.placement-panel,
+.placement-points-reference,
+.feature-intro-panel,
+.feature-roll-panel,
+.feature-recent-panel,
+.store-intro-panel,
+.store-player-bar,
+.store-items-panel,
+.store-tradein-panel,
+.store-rules-panel,
+.inventory-intro-panel,
+.inventory-player-card {
+  padding: 22px 26px;
+}
+
+.phases-intro-panel h2,
+.scoreboard-intro-panel h2,
+.feature-intro-panel h2,
+.store-intro-panel h2,
+.inventory-intro-panel h2 {
+  font-size: 30px;
+  margin-bottom: 10px;
+}
+
+.phases-intro-panel p,
+.scoreboard-intro-panel p,
+.feature-intro-panel p,
+.store-intro-panel p,
+.inventory-intro-panel p {
+  color: var(--text-muted);
+  line-height: 1.6;
+}
+
+.intro-highlight {
+  color: var(--accent-gold);
+  font-weight: 700;
+  margin-top: 6px;
+}
+
+.ruleset-banner h2 {
+  font-size: 28px;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+}
+
+.phases-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 22px;
+}
+
+.phase-card {
+  padding: 24px 28px;
+}
+
+.phase-card-header {
+  margin-bottom: 18px;
+  padding-bottom: 14px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.phase-number,
+.feature-card-tag {
+  display: inline-block;
+  margin-bottom: 8px;
+  color: #ff5b5b;
+  font-size: 13px;
+  font-weight: 800;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+}
+
+.phase-card-header h3 {
+  font-size: 30px;
+  line-height: 1.2;
+}
+
+.phase-card-body {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.phase-subsection,
+.option-card {
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  border-radius: 12px;
+  padding: 18px;
+}
+
+.phase-subsection h4,
+.placement-points-reference h4,
+.store-rules-block h4,
+.feature-category-section h4,
+.inventory-section-title {
+  font-size: 18px;
+  color: var(--accent-gold);
+  margin-bottom: 10px;
+}
+
+.phase-subsection h5,
+.option-card h5 {
+  font-size: 16px;
+  margin-bottom: 6px;
+}
+
+.phase-list,
+.store-rules-block ul,
+.placement-points-reference ul {
+  padding-left: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  color: rgba(255, 255, 255, 0.88);
+  line-height: 1.55;
+}
+
+.phase-note,
+.inventory-empty,
+.feature-recent-empty {
+  margin-top: 12px;
+  color: rgba(255, 255, 255, 0.72);
+  line-height: 1.5;
+  font-style: italic;
+}
+
+.option-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(260px, 1fr));
+  gap: 16px;
+  margin-top: 14px;
+}
+
+.option-card h5 {
+  color: #ff8f8f;
+}
+
+.option-card p {
+  color: rgba(255, 255, 255, 0.84);
+  line-height: 1.45;
+}
+
+.option-card-wide {
+  grid-column: span 2;
+}
+
+/* ======================================================
+   11. SCOREBOARD PAGE
+====================================================== */
+
+.scoreboard-page-content {
+  align-items: flex-start;
+  padding-top: 10px;
+  padding-bottom: 30px;
+}
+
+.scoreboard-page-shell {
+  width: 100%;
+  max-width: 1550px;
+  display: flex;
+  flex-direction: column;
+  gap: 22px;
+}
+
+.scoreboard-layout {
+  display: grid;
+  grid-template-columns: 1fr 380px;
+  gap: 22px;
+  align-items: start;
+}
+
+.scoreboard-panel-header,
+.store-panel-header,
+.feature-panel-header,
+.admin-panel-header {
+  margin-bottom: 18px;
+  padding-bottom: 12px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.scoreboard-panel-header h3,
+.store-panel-header h3,
+.feature-panel-header h3,
+.admin-panel-header h3 {
+  font-size: 24px;
+}
+
+.scoreboard-table-wrap {
+  width: 100%;
+  overflow-x: auto;
+}
+
+.scoreboard-table {
+  width: 100%;
+  border-collapse: collapse;
+  min-width: 500px;
+}
+
+.scoreboard-table thead tr {
+  background: rgba(255, 255, 255, 0.05);
+}
+
+.scoreboard-table th,
+.scoreboard-table td {
+  padding: 16px 14px;
+  text-align: left;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.scoreboard-table th {
+  font-size: 14px;
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+  color: var(--accent-gold);
+}
+
+.scoreboard-table td {
+  color: rgba(255, 255, 255, 0.88);
+  font-size: 15px;
+}
+
+.scoreboard-table tbody tr:hover {
+  background: rgba(255, 255, 255, 0.03);
+}
+
+.placement-panel {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+
+.placement-form,
+.placement-actions,
+.admin-action-group,
+.admin-data-actions {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.placement-field,
+.store-player-field,
+.feature-field,
+.admin-field,
+.admin-specific-key-wrap {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.placement-field label,
+.store-player-field label,
+.feature-field label,
+.admin-field label,
+.admin-subsection label,
+.store-inline-label {
+  font-size: 14px;
+  font-weight: 700;
+  color: rgba(255, 255, 255, 0.88);
+}
+
+.placement-select,
+.store-player-select,
+.store-inline-select,
+.feature-select,
+.feature-number-input,
+.admin-select,
+.admin-number-input {
+  width: 100%;
+  padding: 12px 14px;
+  border-radius: 10px;
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  background: rgba(28, 28, 28, 0.95);
+  color: white;
+  font-size: 15px;
+  outline: none;
+}
+
+.scoreboard-message,
+.store-message,
+.feature-message,
+.admin-message {
+  min-height: 22px;
+  color: #ff7d7d;
+  font-size: 14px;
+  font-weight: 700;
+}
+
+/* ======================================================
+   12. FEATURE CARDS PAGE
+====================================================== */
+
+.feature-page-content {
+  align-items: flex-start;
+  padding-top: 10px;
+  padding-bottom: 30px;
+}
+
+.feature-page-shell {
+  width: 100%;
+  max-width: 1650px;
+  display: flex;
+  flex-direction: column;
+  gap: 22px;
+}
+
+.feature-layout {
+  display: grid;
+  grid-template-columns: 1fr 380px;
+  gap: 22px;
+  align-items: start;
+}
+
+.feature-controls-grid {
+  display: grid;
+  grid-template-columns: repeat(5, minmax(140px, 1fr));
+  gap: 16px;
+  margin-bottom: 22px;
+}
+
+.feature-status-card {
+  padding: 14px 16px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.feature-status-label,
+.admin-status-label,
+.store-credit-label,
+.inventory-credit-label,
+.rng-result-label {
+  display: block;
+  font-size: 12px;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  color: rgba(255, 255, 255, 0.7);
+  margin-bottom: 8px;
+}
+
+.feature-status-value,
+.admin-status-value,
+.store-credit-value,
+.inventory-credit-value {
+  font-size: 32px;
+  font-weight: 800;
+  color: var(--accent-gold);
+  line-height: 1;
+}
+
+.feature-category-buttons {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(120px, 1fr));
+  gap: 12px;
+}
+
+.feature-category-button {
+  padding: 14px 16px;
+  border-radius: 12px;
+  border: 1px solid rgba(255, 90, 90, 0.3);
+  background: rgba(38, 38, 38, 0.95);
+  color: white;
+  font-size: 15px;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.feature-category-button:hover {
+  background: rgba(170, 28, 28, 0.9);
+}
+
+.feature-current-card {
+  min-height: 390px;
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  border-radius: 16px;
+  padding: 18px;
+}
+
+.feature-card-placeholder {
+  min-height: 350px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: rgba(255, 255, 255, 0.62);
+  font-size: 18px;
+  font-weight: 700;
+  text-align: center;
+}
+
+.feature-card-display {
+  display: grid;
+  grid-template-columns: 220px 1fr;
+  gap: 20px;
+  align-items: start;
+}
+
+.feature-card-image {
+  width: 100%;
+  border-radius: 14px;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.feature-card-details h4 {
+  font-size: 30px;
+  margin-bottom: 10px;
+  line-height: 1.2;
+}
+
+.feature-card-meta,
+.feature-recent-meta,
+.store-item-cost {
+  color: var(--accent-gold);
+  font-weight: 700;
+  margin-bottom: 12px;
+}
+
+.feature-card-desc,
+.store-item-description,
+.inventory-item,
+.feature-recent-player {
+  color: rgba(255, 255, 255, 0.86);
+  line-height: 1.6;
+  white-space: pre-wrap;
+}
+
+.feature-action-row {
+  display: flex;
+  gap: 12px;
+  margin-top: 18px;
+}
+
+.feature-recent-list,
+.tradein-values-list,
+.inventory-list {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.feature-recent-item {
+  padding: 12px;
+  display: grid;
+  grid-template-columns: 70px 1fr;
+  gap: 12px;
+}
+
+.feature-recent-thumb {
+  width: 70px;
+  height: 102px;
+  object-fit: cover;
+  border-radius: 10px;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.feature-recent-name {
+  font-size: 16px;
+  font-weight: 700;
+  margin-bottom: 6px;
+}
+
+/* ======================================================
+   13. STORE PAGE
+====================================================== */
+
+.store-page-content {
+  align-items: flex-start;
+  padding-top: 10px;
+  padding-bottom: 30px;
+}
+
+.store-page-shell {
+  width: 100%;
+  max-width: 1600px;
+  display: flex;
+  flex-direction: column;
+  gap: 22px;
+}
+
+.store-player-bar {
+  display: flex;
+  justify-content: space-between;
+  align-items: end;
+  gap: 20px;
+}
+
+.store-layout {
+  display: grid;
+  grid-template-columns: 1fr 390px;
+  gap: 22px;
+  align-items: start;
+}
+
+.store-items-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(260px, 1fr));
+  gap: 18px;
+}
+
+.store-item-card {
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  border-radius: 14px;
+  padding: 18px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.store-item-image {
+  height: 110px;
+  border-radius: 12px;
+  background: linear-gradient(180deg, rgba(50, 50, 50, 0.95), rgba(22, 22, 22, 0.95));
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: rgba(255, 255, 255, 0.58);
+  font-size: 14px;
+  font-weight: 700;
+  letter-spacing: 1px;
+}
+
+.store-item-card h4 {
+  font-size: 24px;
+}
+
+.store-buy-button {
+  margin-top: auto;
+}
+
+.store-side-column {
+  display: flex;
+  flex-direction: column;
+  gap: 22px;
+}
+
+.tradein-row,
+.inventory-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 12px;
+  padding: 12px 14px;
+  border-radius: 10px;
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  color: rgba(255, 255, 255, 0.87);
+}
+
+.tradein-row span:last-child {
+  color: var(--accent-gold);
+  font-weight: 700;
+}
+
+.store-rules-block + .store-rules-block,
+.admin-subsection + .admin-subsection {
+  margin-top: 18px;
+}
+
+/* ======================================================
+   14. INVENTORY PAGE
+====================================================== */
+
+.inventory-page-content {
+  align-items: flex-start;
+  padding-top: 10px;
+  padding-bottom: 30px;
+}
+
+.inventory-page-shell {
+  width: 100%;
+  max-width: 1600px;
+  display: flex;
+  flex-direction: column;
+  gap: 22px;
+}
+
+.inventory-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(280px, 1fr));
+  gap: 22px;
+}
+
+.inventory-player-card {
+  padding: 22px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.inventory-player-header {
+  padding-bottom: 12px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.inventory-player-name {
+  font-size: 26px;
+  margin-bottom: 8px;
+}
+
+.inventory-credit-value {
+  font-size: 34px;
+}
+
+.inventory-item-type {
+  display: block;
+  font-size: 12px;
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+  color: #ff8f8f;
+  margin-top: 4px;
+}
+
+/* ======================================================
+   15. ADMIN PAGE / SHARED ADMIN LAYOUT
+====================================================== */
+
+.admin-page-content {
+  align-items: flex-start;
+  padding-top: 10px;
+  padding-bottom: 30px;
+}
+
+.admin-page-shell {
+  width: 100%;
+  max-width: 1600px;
+  display: flex;
+  flex-direction: column;
+  gap: 22px;
+}
+
+.admin-layout {
+  display: grid;
+  grid-template-columns: 1fr 380px;
+  gap: 22px;
+  align-items: start;
+}
+
+.admin-main-column,
+.admin-side-column {
+  display: flex;
+  flex-direction: column;
+  gap: 22px;
+}
+
+.admin-panel {
+  padding: 22px;
+}
+
+.admin-form-grid {
+  display: grid;
+  grid-template-columns: 1fr 220px;
+  gap: 16px;
+  margin-bottom: 22px;
+}
+
+.admin-inline-grid {
+  display: grid;
+  grid-template-columns: 220px 1fr;
+  gap: 16px;
+  align-items: end;
+}
+
+.admin-status-card {
+  padding: 14px 16px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.admin-file-label {
+  display: inline-block;
+  padding: 12px 14px;
+  border-radius: 10px;
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  cursor: pointer;
+  color: rgba(255, 255, 255, 0.88);
+  font-weight: 700;
+  text-align: center;
+}
+
+.admin-file-input {
+  display: none;
+}
+
+/* ======================================================
+   16. SPONSOR STRIP / FOOTER
+====================================================== */
+
+.sponsor-strip {
+  display: flex;
+  justify-content: center;
+  gap: 60px;
+  padding: 20px;
+  background: rgba(10, 10, 10, 0.85);
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.sponsor-item img {
+  height: 60px;
+  opacity: 0.85;
+  transition: opacity 0.2s;
+}
+
+.sponsor-item img:hover {
+  opacity: 1;
+}
 
 .gg-minimal-footer {
   margin-top: 40px;
@@ -651,21 +1576,51 @@ body::after {
 }
 
 /* ======================================================
-   12. PAGE ANIMATIONS
+   17. AUTH GATE
 ====================================================== */
 
-body {
-  opacity: 0;
-  transition: opacity 0.25s ease;
+.auth-gate {
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 24px;
+  background: rgba(5, 5, 10, 0.88);
+  backdrop-filter: blur(8px);
 }
 
-body.page-loaded {
-  opacity: 1;
+.auth-card {
+  width: min(460px, 100%);
+  padding: 28px;
+  text-align: center;
 }
 
-body.page-fade-out {
-  opacity: 0;
+.auth-card h2 {
+  margin-bottom: 12px;
+  font-size: 30px;
 }
+
+.auth-card p {
+  margin-bottom: 20px;
+  color: rgba(255, 255, 255, 0.8);
+  line-height: 1.5;
+}
+
+.auth-user {
+  margin-top: 16px;
+  font-size: 14px;
+  color: rgba(255, 255, 255, 0.75);
+}
+
+.auth-hidden {
+  display: none !important;
+}
+
+/* ======================================================
+   18. PAGE ANIMATIONS
+====================================================== */
 
 @keyframes logoFloat {
   0% {
@@ -682,8 +1637,18 @@ body.page-fade-out {
 }
 
 /* ======================================================
-   13. RESPONSIVE
+   19. RESPONSIVE
 ====================================================== */
+
+@media (max-width: 1280px) {
+  .feature-controls-grid {
+    grid-template-columns: repeat(2, minmax(180px, 1fr));
+  }
+
+  .feature-layout {
+    grid-template-columns: 1fr;
+  }
+}
 
 @media (max-width: 1200px) {
   .main-menu-layout {
@@ -701,6 +1666,19 @@ body.page-fade-out {
   }
 }
 
+@media (max-width: 1180px) {
+  .store-layout {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 1100px) {
+  .scoreboard-layout,
+  .admin-layout {
+    grid-template-columns: 1fr;
+  }
+}
+
 @media (max-width: 900px) {
   .main-logo {
     width: min(700px, 92vw);
@@ -710,6 +1688,51 @@ body.page-fade-out {
   .main-logo-wrap {
     margin-top: 50px;
     min-height: 220px;
+  }
+
+  .phase-card {
+    padding: 20px;
+  }
+
+  .phase-card-header h3 {
+    font-size: 24px;
+  }
+
+  .option-grid,
+  .feature-card-display {
+    grid-template-columns: 1fr;
+  }
+
+  .option-card-wide {
+    grid-column: span 1;
+  }
+
+  .feature-category-buttons {
+    grid-template-columns: repeat(2, minmax(120px, 1fr));
+  }
+}
+
+@media (max-width: 820px) {
+  .store-player-bar {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .store-credit-display {
+    text-align: left;
+  }
+
+  .store-items-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 760px) {
+  .inventory-grid,
+  .feature-category-buttons,
+  .admin-form-grid,
+  .admin-inline-grid {
+    grid-template-columns: 1fr;
   }
 }
 
@@ -746,7 +1769,10 @@ body.page-fade-out {
     left: 14px;
   }
 
+  .feature-category-buttons,
+  .feature-action-row,
   .gg-footer-inner {
+    grid-template-columns: 1fr;
     flex-direction: column;
     gap: 12px;
   }
