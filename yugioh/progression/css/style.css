@@ -74,9 +74,9 @@ body {
 }
 
 .main-logo {
-  width: min(520px, 62vw);
-  max-width: 100%;
-  max-height: 220px;
+  width: 320px;
+  max-width: 40vw;
+  max-height: 140px;
   height: auto;
   display: block;
   object-fit: contain;
