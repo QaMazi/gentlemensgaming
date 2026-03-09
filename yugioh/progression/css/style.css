@@ -68,62 +68,81 @@ body {
   display: flex;
   justify-content: center;
   align-items: center;
-  margin-top: 6px;
-  margin-bottom: 10px;
-  min-height: 160px;
+
+  margin-top: 80px;     /* pushes logo down */
+  margin-bottom: 40px;
+
+  min-height: 320px;    /* creates vertical centering space */
 }
 
 .main-logo {
-  width: 320px;
-  max-width: 40vw;
-  max-height: 140px;
+  width: 1400px;        /* ~50% larger */
+  max-width: 85vw;
+  max-height: 600px;
+
   height: auto;
   display: block;
   object-fit: contain;
+
   filter:
-    drop-shadow(0 0 10px rgba(255, 180, 60, 0.22))
-    drop-shadow(0 0 24px rgba(255, 140, 30, 0.18))
-    drop-shadow(0 10px 24px rgba(0, 0, 0, 0.28));
+    drop-shadow(0 0 12px rgba(255, 180, 60, 0.25))
+    drop-shadow(0 0 30px rgba(255, 140, 30, 0.20))
+    drop-shadow(0 12px 30px rgba(0, 0, 0, 0.35));
+
   animation: logoFloat 4.8s ease-in-out infinite;
 }
 
+
+/* Floating animation */
+
 @keyframes logoFloat {
+
   0% {
     transform: translateY(0px) scale(1);
   }
+
   50% {
-    transform: translateY(-4px) scale(1.01);
+    transform: translateY(-6px) scale(1.02);
   }
+
   100% {
     transform: translateY(0px) scale(1);
   }
+
 }
+
+
+/* Tablet */
 
 @media (max-width: 900px) {
+
   .main-logo {
-    width: min(440px, 86vw);
-    max-height: 180px;
+    width: min(700px, 92vw);
+    max-height: 300px;
   }
 
   .main-logo-wrap {
-    min-height: 130px;
-    margin-bottom: 6px;
+    margin-top: 50px;
+    min-height: 220px;
   }
 
-  .main-header {
-    padding: 14px 16px 6px;
-  }
 }
 
+
+/* Mobile */
+
 @media (max-width: 560px) {
+
   .main-logo {
-    width: 92vw;
-    max-height: 140px;
+    width: 94vw;
+    max-height: 220px;
   }
 
   .main-logo-wrap {
-    min-height: 100px;
+    margin-top: 30px;
+    min-height: 160px;
   }
+
 }
 
 /* MAIN LAYOUT */
