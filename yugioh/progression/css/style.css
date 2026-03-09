@@ -2440,3 +2440,164 @@ transform:scale(1.25);
   pointer-events: none;
   cursor: not-allowed;
 }
+/* =========================
+   PATCH PANEL AAA UPGRADE
+========================= */
+
+.update-loading,
+.update-error {
+  text-align: center;
+  padding: 28px 10px;
+  font-size: 14px;
+  color: rgba(255, 255, 255, 0.65);
+}
+
+.updates-list {
+  position: relative;
+}
+
+.update-card {
+  position: relative;
+  overflow: hidden;
+  transition:
+    transform 0.18s ease,
+    border-color 0.18s ease,
+    box-shadow 0.18s ease,
+    background 0.18s ease;
+}
+
+.update-card:hover {
+  transform: translateY(-2px);
+  border-color: rgba(255, 80, 80, 0.35);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.35);
+}
+
+.update-card-current {
+  background: linear-gradient(
+    180deg,
+    rgba(80, 12, 12, 0.22),
+    rgba(255, 255, 255, 0.03)
+  );
+  border-color: rgba(255, 80, 80, 0.28);
+}
+
+.update-timeline-rail {
+  position: absolute;
+  left: 18px;
+  top: 14px;
+  bottom: 14px;
+  width: 2px;
+  background: linear-gradient(
+    to bottom,
+    rgba(255, 80, 80, 0.55),
+    rgba(255, 255, 255, 0.06)
+  );
+  border-radius: 999px;
+}
+
+.update-card-top {
+  position: relative;
+  z-index: 1;
+}
+
+.update-toggle {
+  cursor: pointer;
+}
+
+.update-left-meta {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  min-width: 0;
+}
+
+.update-dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 999px;
+  background: #ff4a4a;
+  box-shadow:
+    0 0 8px rgba(255, 74, 74, 0.8),
+    0 0 18px rgba(255, 74, 74, 0.45);
+  flex: 0 0 auto;
+}
+
+.update-top-right {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.update-expand-indicator {
+  min-width: 18px;
+  text-align: center;
+  font-weight: 800;
+  font-size: 16px;
+  opacity: 0.65;
+  transition: transform 0.18s ease, opacity 0.18s ease;
+}
+
+.update-expanded .update-expand-indicator {
+  opacity: 1;
+}
+
+.update-body {
+  overflow: hidden;
+  transition:
+    max-height 0.25s ease,
+    opacity 0.22s ease,
+    margin-top 0.22s ease;
+  position: relative;
+  z-index: 1;
+  padding-left: 20px;
+}
+
+.update-collapsed .update-body {
+  max-height: 0;
+  opacity: 0;
+  margin-top: 0;
+}
+
+.update-expanded .update-body {
+  max-height: 520px;
+  opacity: 1;
+  margin-top: 10px;
+}
+
+.update-title {
+  position: relative;
+}
+
+.update-title::after {
+  content: "";
+  display: block;
+  width: 42px;
+  height: 2px;
+  margin-top: 10px;
+  background: linear-gradient(90deg, #ff4a4a, transparent);
+  border-radius: 999px;
+}
+
+.update-badge-live {
+  box-shadow:
+    0 0 6px rgba(255, 80, 80, 0.5),
+    0 0 16px rgba(255, 80, 80, 0.35);
+}
+
+@media (max-width: 560px) {
+  .update-card-top {
+    align-items: flex-start;
+  }
+
+  .update-top-right {
+    gap: 8px;
+  }
+
+  .update-body {
+    padding-left: 14px;
+  }
+
+  .update-timeline-rail {
+    left: 14px;
+  }
+}

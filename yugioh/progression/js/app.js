@@ -9,6 +9,7 @@ document.addEventListener("DOMContentLoaded", async () => {
   }
 
   initializePageIntro();
+  loadPatchNotes();
 });
 
 function initializeMenuButtons() {
@@ -24,6 +25,11 @@ function handleMenuNavigation(event) {
   const targetUrl = event.currentTarget.getAttribute("href");
 
   if (tag !== "a" || !targetUrl || targetUrl === "#") {
+    return;
+  }
+
+  if (event.currentTarget.classList.contains("is-locked")) {
+    event.preventDefault();
     return;
   }
 
@@ -48,6 +54,153 @@ function initializePageIntro() {
   document.body.classList.add("page-loaded");
 }
 
+/* =========================
+   PATCH NOTES
+========================= */
+
+async function loadPatchNotes() {
+  const container = document.getElementById("updatesList");
+  const versionTag = document.querySelector(".version-tag");
+
+  if (!container) return;
+
+  try {
+    const response = await fetch("data/patch-notes.json", {
+      cache: "no-store"
+    });
+
+    if (!response.ok) {
+      throw new Error(`Patch notes request failed: ${response.status}`);
+    }
+
+    const data = await response.json();
+    const patches = Array.isArray(data.patches) ? data.patches : [];
+
+    if (!patches.length) {
+      container.innerHTML = `
+        <div class="update-error">
+          No patch notes available.
+        </div>
+      `;
+      return;
+    }
+
+    renderPatchNotes(patches);
+
+    if (versionTag && patches[0]?.version) {
+      versionTag.textContent = patches[0].version;
+    }
+  } catch (err) {
+    console.error("Patch notes failed to load:", err);
+
+    container.innerHTML = `
+      <div class="update-error">
+        Failed to load patch history.
+      </div>
+    `;
+  }
+}
+
+function renderPatchNotes(patches) {
+  const container = document.getElementById("updatesList");
+  if (!container) return;
+
+  container.innerHTML = patches
+    .map((patch, index) => {
+      const isCurrent = index === 0;
+      const badgeText = isCurrent ? "Current" : (patch.badge || "Previous");
+      const badgeClass = isCurrent
+        ? "update-badge update-badge-live"
+        : "update-badge";
+
+      const safeVersion = patch.version || "Unknown Version";
+      const safeTitle = patch.title || "Untitled Patch";
+      const points = Array.isArray(patch.points) ? patch.points : [];
+
+      const pointsHtml = points.map((point) => `<li>${escapeHtml(point)}</li>`).join("");
+
+      return `
+        <article class="update-card ${isCurrent ? "update-expanded update-card-current" : "update-collapsed"}">
+          <div class="update-timeline-rail"></div>
+
+          <div class="update-card-top update-toggle" role="button" tabindex="0" aria-expanded="${isCurrent ? "true" : "false"}">
+            <div class="update-left-meta">
+              <span class="update-version">${escapeHtml(safeVersion)}</span>
+              <span class="update-dot"></span>
+            </div>
+
+            <div class="update-top-right">
+              <span class="${badgeClass}">
+                ${escapeHtml(badgeText)}
+              </span>
+
+              <span class="update-expand-indicator">
+                ${isCurrent ? "–" : "+"}
+              </span>
+            </div>
+          </div>
+
+          <div class="update-body">
+            <h3 class="update-title">${escapeHtml(safeTitle)}</h3>
+
+            <ul class="update-points">
+              ${pointsHtml}
+            </ul>
+          </div>
+        </article>
+      `;
+    })
+    .join("");
+
+  initializePatchToggles();
+}
+
+function initializePatchToggles() {
+  const cards = document.querySelectorAll(".update-card");
+
+  cards.forEach((card) => {
+    const toggle = card.querySelector(".update-toggle");
+    const indicator = card.querySelector(".update-expand-indicator");
+
+    if (!toggle) return;
+
+    const flipCard = () => {
+      const expanded = card.classList.contains("update-expanded");
+
+      card.classList.toggle("update-expanded", !expanded);
+      card.classList.toggle("update-collapsed", expanded);
+
+      toggle.setAttribute("aria-expanded", expanded ? "false" : "true");
+
+      if (indicator) {
+        indicator.textContent = expanded ? "+" : "–";
+      }
+    };
+
+    toggle.addEventListener("click", flipCard);
+
+    toggle.addEventListener("keydown", (event) => {
+      if (event.key === "Enter" || event.key === " ") {
+        event.preventDefault();
+        flipCard();
+      }
+    });
+  });
+}
+
+function escapeHtml(value) {
+  return String(value)
+    .replaceAll("&", "&amp;")
+    .replaceAll("<", "&lt;")
+    .replaceAll(">", "&gt;")
+    .replaceAll('"', "&quot;")
+    .replaceAll("'", "&#039;");
+}
+
+/* =========================
+   PROGRESSION APP
+========================= */
+
 async function initializeProgressionApp() {
   if (!window.ggAuth || !window.db) {
     console.warn("Progression bootstrap skipped: auth or db missing.");
@@ -56,13 +209,6 @@ async function initializeProgressionApp() {
 
   const authGate = document.getElementById("authGate");
   const loginButton = document.getElementById("discordLoginButton");
-  const authUserInfo = document.getElementById("authUserInfo");
-
-  const accountAvatar = document.getElementById("accountAvatar");
-  const accountUsername = document.getElementById("accountUsername");
-  const accountRole = document.getElementById("accountRole");
-  const accountStatus = document.getElementById("accountStatus");
-  const accountDiscordId = document.getElementById("accountDiscordId");
   const logoutButton = document.getElementById("logoutButton");
 
   loginButton?.addEventListener("click", async () => {

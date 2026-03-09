@@ -34,7 +34,7 @@
 
   <div class="app-shell">
     <header class="main-header">
-  <div class="version-tag">v0.1.2</div>
+  <div class="version-tag">v0.1.4</div>
 
   <div class="main-logo-wrap">
     <img
@@ -108,41 +108,10 @@
     </div>
 
     <div class="updates-scroll">
-      <div class="updates-list">
-
-        <article class="update-card">
-          <div class="update-card-top">
-            <span class="update-version">v0.1.2</span>
-            <span class="update-badge update-badge-live">Current</span>
-          </div>
-
-          <h3 class="update-title">Website Migration + Account System</h3>
-
-          <ul class="update-points">
-            <li>Moved the Progression App from a local tool into the live Gentlemen's Gaming website.</li>
-            <li>Added Discord login so users must authenticate before accessing the app.</li>
-            <li>Built the login overlay and logged-in user panel into the main dashboard.</li>
-            <li>Connected Supabase as the first live database layer for future league data.</li>
-            <li>Restructured the home layout into a three-column dashboard with user info, menu, and patch history.</li>
-          </ul>
-        </article>
-
-        <article class="update-card">
-          <div class="update-card-top">
-            <span class="update-version">v0.1.0</span>
-            <span class="update-badge">Launch</span>
-          </div>
-
-          <h3 class="update-title">Initial App Foundation</h3>
-
-          <ul class="update-points">
-            <li>Built the AIO Progression Series hub and main navigation structure.</li>
-            <li>Added pages for Phases, Scoreboard, Promotional Boxes, Store, Feature Cards, RNG, User Inventory, and Admin Panel.</li>
-            <li>Separated Promotional Boxes into their own dedicated app flow.</li>
-            <li>Laid the groundwork for the league economy, inventory tracking, and admin systems.</li>
-          </ul>
-        </article>
-
+      <div id="updatesList" class="updates-list">
+        <div class="update-loading">
+          Loading patch history...
+        </div>
       </div>
     </div>
   </div>
