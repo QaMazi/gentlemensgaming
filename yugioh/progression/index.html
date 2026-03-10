@@ -25,135 +25,368 @@
     <div id="authUserInfo" class="auth-user"></div>
   </div>
 </div>
-  <div class="video-background">
-    <video autoplay muted loop playsinline id="bgVideo">
-      <source src="assets/video/background.mp4" type="video/mp4" />
-    </video>
-    <div class="video-overlay"></div>
-  </div>
 
-  <div class="app-shell">
-    <header class="main-header">
-  <div class="version-tag">v0.1.5</div>
+<div class="video-background">
+  <video autoplay muted loop playsinline id="bgVideo">
+    <source src="assets/video/background.mp4" type="video/mp4" />
+  </video>
+  <div class="video-overlay"></div>
+</div>
 
-  <div class="main-logo-wrap">
-    <img
-      src="assets/logos/progression-series-logo.png"
-      alt="Progression Series Logo"
-      class="main-logo"
-    />
-  </div>
-</header>
+<div class="app-shell">
+  <header class="main-header">
+    <div class="version-tag">v0.1.4</div>
 
-    <main class="main-menu-layout">
+    <div class="main-logo-wrap">
+      <img
+        src="assets/logos/progression-series-logo.png"
+        alt="Progression Series Logo"
+        class="main-logo"
+      />
+    </div>
+  </header>
 
-  <aside class="account-panel">
-    <div class="account-card">
-      <div class="account-card-header">
-        <h2>Logged In User</h2>
+  <main class="home-dashboard">
+
+    <section class="home-panel home-user-panel">
+      <div class="home-panel-header">
+        <h2>Current User</h2>
       </div>
 
-      <div class="account-card-body">
-        <div class="account-avatar-wrap">
-          <img
-            id="accountAvatar"
-            class="account-avatar"
-            src="assets/logos/progression-series.png"
-            alt="User Avatar"
-          />
-        </div>
-
-        <div class="account-user-meta">
-          <div id="accountUsername" class="account-username">Not Logged In</div>
-          <div id="accountRole" class="account-role">Guest</div>
-        </div>
-
-        <div class="account-stats">
-          <div class="account-stat-row">
-            <span>Status</span>
-            <strong id="accountStatus">Offline</strong>
+      <div class="account-card">
+        <div class="account-card-body">
+          <div class="account-avatar-wrap">
+            <img
+              id="accountAvatar"
+              class="account-avatar"
+              src="assets/logos/progression-series.png"
+              alt="User Avatar"
+            />
           </div>
 
-          <div class="account-stat-row">
-            <span>Discord ID</span>
-            <strong id="accountDiscordId">---</strong>
+          <div class="account-user-meta">
+            <div id="accountUsername" class="account-username">Not Logged In</div>
+            <div id="accountRole" class="account-role">Guest</div>
+          </div>
+
+          <div class="account-stats">
+            <div class="account-stat-row">
+              <span>Status</span>
+              <strong id="accountStatus">Offline</strong>
+            </div>
+
+            <div class="account-stat-row">
+              <span>Discord ID</span>
+              <strong id="accountDiscordId">---</strong>
+            </div>
+
+            <div class="account-stat-row">
+              <span>Active Session</span>
+              <strong id="accountActiveSession">Season 1</strong>
+            </div>
+          </div>
+
+          <div class="home-user-actions">
+            <button class="menu-button home-action-button" type="button">Join Session</button>
+            <button class="menu-button home-action-button" type="button">Leave Session</button>
+          </div>
+
+          <button id="logoutButton" class="menu-button logout-button" type="button">
+            Log Out
+          </button>
+        </div>
+      </div>
+    </section>
+
+    <section class="home-panel home-controls-panel">
+      <div class="home-panel-header">
+        <h2>Game Controls</h2>
+      </div>
+
+      <div class="menu-buttons compact-buttons">
+        <a href="pages/phases.html" class="menu-button">Phases</a>
+        <a href="pages/scoreboard.html" class="menu-button">Scoreboard</a>
+        <a href="#" class="menu-button is-locked">Banlist <span class="lock-icon">🔒</span></a>
+        <a href="#" class="menu-button is-locked">Player Inventories <span class="lock-icon">🔒</span></a>
+        <a href="#" class="menu-button is-locked">Session Info <span class="lock-icon">🔒</span></a>
+        <a href="pages/admin.html" class="menu-button" id="adminPanelButton">Admin Panel</a>
+      </div>
+    </section>
+
+    <section class="home-panel home-tools-panel">
+      <div class="home-panel-header">
+        <h2>Player Tools</h2>
+      </div>
+
+      <div class="menu-buttons compact-buttons">
+        <a href="#" class="menu-button is-locked">Your Decks <span class="lock-icon">🔒</span></a>
+        <a href="pages/user-inventory.html" class="menu-button">Your Inventory</a>
+        <a href="#" class="menu-button is-locked">Your Notes <span class="lock-icon">🔒</span></a>
+        <a href="pages/store.html" class="menu-button">Store</a>
+        <a href="#" class="menu-button is-locked">Trade Room <span class="lock-icon">🔒</span></a>
+        <a href="#" class="menu-button is-locked">Card Database <span class="lock-icon">🔒</span></a>
+      </div>
+    </section>
+
+    <section class="home-panel home-online-panel">
+      <div class="home-panel-header">
+        <h2>Online Players</h2>
+      </div>
+
+      <div class="home-online-list">
+        <div class="home-player-slot online">
+          <img src="assets/logos/progression-series.png" class="home-player-avatar" alt="QaMazi" />
+          <span class="home-player-name">QaMazi</span>
+          <span class="home-player-status">Online</span>
+        </div>
+
+        <div class="home-player-slot online">
+          <img src="assets/logos/progression-series.png" class="home-player-avatar" alt="SKX" />
+          <span class="home-player-name">SKX</span>
+          <span class="home-player-status">Online</span>
+        </div>
+
+        <div class="home-player-slot away">
+          <img src="assets/logos/progression-series.png" class="home-player-avatar" alt="Silverwolf" />
+          <span class="home-player-name">Silverwolf</span>
+          <span class="home-player-status">Away</span>
+        </div>
+
+        <div class="home-player-slot offline">
+          <img src="assets/logos/progression-series.png" class="home-player-avatar" alt="Blu" />
+          <span class="home-player-name">Blu</span>
+          <span class="home-player-status">Offline</span>
+        </div>
+
+        <div class="home-player-slot online">
+          <img src="assets/logos/progression-series.png" class="home-player-avatar" alt="Nightmare" />
+          <span class="home-player-name">Nightmare</span>
+          <span class="home-player-status">Online</span>
+        </div>
+
+        <div class="home-player-slot empty">
+          <div class="home-player-avatar empty-avatar"></div>
+          <span class="home-player-name">Waiting for Player</span>
+          <span class="home-player-status">Empty</span>
+        </div>
+      </div>
+    </section>
+
+    <section class="home-panel home-widgets-panel">
+      <div class="home-widget-card">
+        <div class="home-panel-header">
+          <h2>Recent Pulls</h2>
+        </div>
+
+        <ul class="home-feed-list">
+          <li>Nightmare pulled Secret Rare Jinzo</li>
+          <li>Silverwolf opened Promo Box 2</li>
+          <li>SKX pulled Dark Magician</li>
+          <li>Blu opened Legacy Pack</li>
+          <li>QaMazi pulled Thousand-Eyes Restrict</li>
+        </ul>
+      </div>
+
+      <div class="home-widget-card">
+        <div class="home-panel-header">
+          <h2>Schedule</h2>
+        </div>
+
+        <div class="home-schedule-widget">
+          <div class="home-schedule-label">Next Session</div>
+          <div class="home-schedule-phase">Draft Phase</div>
+          <div class="home-schedule-time">June 12 • 8:00 PM</div>
+          <div class="home-schedule-countdown">02:14:21</div>
+        </div>
+      </div>
+    </section>
+
+    <section class="home-panel home-patch-panel">
+      <div class="updates-panel">
+        <div class="updates-panel-inner">
+          <div class="updates-panel-header">
+            <h2>Patch History</h2>
+            <span class="updates-panel-subtitle">Development Log</span>
+          </div>
+
+          <div class="updates-scroll">
+            <div class="updates-list">
+
+              <article class="update-card">
+                <div class="update-card-top">
+                  <span class="update-version">v0.1.4</span>
+                  <span class="update-badge update-badge-live">Current</span>
+                </div>
+
+                <h3 class="update-title">Core Backend Infrastructure</h3>
+
+                <ul class="update-points">
+                  <li>Implemented full Supabase backend architecture for the progression system.</li>
+                  <li>Added multi-session progression campaigns with persistent save/load support.</li>
+                  <li>Built lobby system with join, leave, and ready state tracking.</li>
+                  <li>Added real-time activity feed for session events.</li>
+                  <li>Introduced content lock system for packs, promo boxes, and feature cards.</li>
+                </ul>
+              </article>
+
+              <article class="update-card">
+                <div class="update-card-top">
+                  <span class="update-version">v0.1.3</span>
+                  <span class="update-badge">Stable</span>
+                </div>
+
+                <h3 class="update-title">Pack Opening Systems</h3>
+
+                <ul class="update-points">
+                  <li>Built promotional box opening flow and rarity framework.</li>
+                  <li>Added recent pull tracking and local activity storage.</li>
+                  <li>Improved UI feedback for opening results and inventory flow.</li>
+                </ul>
+              </article>
+
+            </div>
           </div>
         </div>
+      </div>
+    </section>
 
-        <button id="logoutButton" class="menu-button logout-button" type="button">
-          Log Out
-        </button>
+  </main>
+
+  <footer class="gg-minimal-footer">
+    <div class="gg-footer-inner">
+      <div class="gg-footer-copy">
+        © Gentlemen's Gaming
+      </div>
+
+      <div class="gg-footer-discord">
+        <ul class="nk-social-links">
+          <li>
+            <a href="https://discord.gg/YOURINVITE" target="_blank">
+              <span class="fab fa-discord"></span>
+            </a>
+          </li>
+
+          <li>
+            <a href="https://discord.gg/YOURINVITE2" target="_blank">
+              <span class="fab fa-discord"></span>
+            </a>
+          </li>
+        </ul>
       </div>
     </div>
-  </aside>
+  </footer>
+</div>
 
-    <section class="menu-panel">
-    <div class="menu-buttons">
-      <a href="pages/phases.html" class="menu-button">Phases</a>
-      <a href="pages/card-search.html" class="menu-button">Card Search</a>
-      <a href="pages/scoreboard.html" class="menu-button">Scoreboard</a>
-      <a href="pages/promo-boxes.html" class="menu-button">Promotional Boxes</a>
-      <a href="pages/store.html" class="menu-button">Store</a>
-      <a href="pages/feature-cards.html" class="menu-button">Feature Cards</a>
-      <a href="pages/randomizer.html" class="menu-button">Random Number Generator</a>
-      <a href="pages/user-inventory.html" class="menu-button">User Inventory</a>
-      <a href="pages/admin.html" class="menu-button">Admin Panel</a>
-    </div>
-  </section>
-
-      <aside class="updates-panel">
-  <div class="updates-panel-inner">
-    <div class="updates-panel-header">
-      <h2>Patch History</h2>
-      <span class="updates-panel-subtitle">Development Log</span>
-    </div>
-
-    <div class="updates-scroll">
-      <div id="updatesList" class="updates-list">
-        <div class="update-loading">
-          Loading patch history...
-        </div>
-      </div>
-    </div>
-  </div>
-</aside>
-    </main>
-
-    <footer class="gg-minimal-footer">
-
-  <div class="gg-footer-inner">
-
-    <div class="gg-footer-copy">
-      © Gentlemen's Gaming
-    </div>
-
-    <div class="gg-footer-discord">
-
-      <ul class="nk-social-links">
-
-        <li>
-          <a href="https://discord.gg/YOURINVITE" target="_blank">
-            <span class="fab fa-discord"></span>
-          </a>
-        </li>
-
-        <li>
-          <a href="https://discord.gg/YOURINVITE2" target="_blank">
-            <span class="fab fa-discord"></span>
-          </a>
-        </li>
-
-      </ul>
-
-    </div>
-
-  </div>
-
-</footer>
-  </div>
-
-  <script src="js/database.js"></script>
+<script src="js/database.js"></script>
 <script src="js/auth.js"></script>
 <script src="js/app.js"></script>
+<script>
+  document.addEventListener("DOMContentLoaded", async () => {
+    const authGate = document.getElementById("authGate");
+    const loginButton = document.getElementById("discordLoginButton");
+    const authUserInfo = document.getElementById("authUserInfo");
+
+    const accountAvatar = document.getElementById("accountAvatar");
+    const accountUsername = document.getElementById("accountUsername");
+    const accountRole = document.getElementById("accountRole");
+    const accountStatus = document.getElementById("accountStatus");
+    const accountDiscordId = document.getElementById("accountDiscordId");
+    const accountActiveSession = document.getElementById("accountActiveSession");
+    const logoutButton = document.getElementById("logoutButton");
+    const adminPanelButton = document.getElementById("adminPanelButton");
+
+    function fillAccountPanelFromSession(session, userRecord = null) {
+      const user = session?.user;
+      if (!user) return;
+
+      const discordId =
+        userRecord?.discord_id ||
+        user.user_metadata?.provider_id ||
+        user.user_metadata?.sub ||
+        user.id ||
+        "---";
+
+      const username =
+        userRecord?.username ||
+        user.user_metadata?.preferred_username ||
+        user.user_metadata?.full_name ||
+        user.user_metadata?.name ||
+        user.user_metadata?.user_name ||
+        user.email ||
+        "Unknown User";
+
+      const avatar =
+        userRecord?.avatar ||
+        user.user_metadata?.avatar_url ||
+        user.user_metadata?.picture ||
+        "";
+
+      const role =
+        userRecord?.role ||
+        "player";
+
+      if (authUserInfo) {
+        authUserInfo.textContent = `Logged in as ${username} (${role})`;
+      }
+
+      if (accountUsername) accountUsername.textContent = username;
+      if (accountRole) accountRole.textContent = role;
+      if (accountStatus) accountStatus.textContent = "Online";
+      if (accountDiscordId) accountDiscordId.textContent = discordId;
+      if (accountActiveSession) accountActiveSession.textContent = "Season 1";
+
+      if (accountAvatar && avatar) {
+        accountAvatar.src = avatar;
+      }
+
+      if (adminPanelButton) {
+        adminPanelButton.style.display = role === "admin" ? "flex" : "none";
+      }
+    }
+
+    loginButton?.addEventListener("click", async () => {
+      if (!window.ggAuth) {
+        console.error("ggAuth is not loaded.");
+        alert("Login system failed to load.");
+        return;
+      }
+
+      await window.ggAuth.signInWithDiscord();
+    });
+
+    logoutButton?.addEventListener("click", async () => {
+      if (!window.ggAuth) return;
+      await window.ggAuth.signOut();
+    });
+
+    document.querySelectorAll(".is-locked").forEach((button) => {
+      button.addEventListener("click", (event) => {
+        event.preventDefault();
+        alert("This feature is currently disabled.");
+      });
+    });
+
+    const session = await window.ggAuth.getSession();
+
+    if (!session) {
+      if (adminPanelButton) adminPanelButton.style.display = "none";
+      document.body.classList.add("page-loaded");
+      return;
+    }
+
+    let userRecord = null;
+
+    try {
+      userRecord = await window.ggAuth.ensureUserRecord(session);
+    } catch (error) {
+      console.error("ensureUserRecord failed:", error);
+    }
+
+    fillAccountPanelFromSession(session, userRecord);
+
+    authGate?.classList.add("auth-hidden");
+    document.body.classList.add("page-loaded");
+  });
+</script>
 </body>
 </html>
