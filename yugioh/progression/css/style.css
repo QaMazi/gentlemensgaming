@@ -876,3 +876,14 @@ img {
     max-height: none;
   }
 }
+
+/* --- Button text centering fix --- */
+
+.home-menu-button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding-left: 0;
+  padding-right: 0;
+}
