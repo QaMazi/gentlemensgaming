@@ -14,7 +14,7 @@
     <div class="auth-card">
       <h2>YGO Progression Login</h2>
       <p>Sign in with Discord to access the progression app.</p>
-      <button id="discordLoginButton" class="home-auth-button">Login with Discord</button>
+      <button id="discordLoginButton" class="menu-button auth-login-button">Login with Discord</button>
       <div id="authUserInfo" class="auth-user"></div>
     </div>
   </div>
@@ -26,16 +26,14 @@
     <div class="video-overlay"></div>
   </div>
 
-  <div class="app-shell home-shell">
-    <div class="home-stage">
-      <main class="home-canvas">
-        <aside class="home-sidebar">
-          <div class="home-version-pill">v0.1.5</div>
+  <div class="home-stage">
+    <div class="home-canvas">
+      <section class="home-top">
+        <div class="home-left-stack">
+          <div class="home-version-pill">App v. <span id="appVersionLabel">0.1.5</span></div>
 
-          <section class="home-card home-current-user">
-            <div class="home-card-title">Current User</div>
-
-            <div class="home-user-top">
+          <section class="home-card home-user-card">
+            <div class="home-user-main">
               <div class="home-user-avatar-wrap">
                 <img
                   id="accountAvatar"
@@ -48,165 +46,208 @@
               <div class="home-user-meta">
                 <div id="accountUsername" class="home-user-name">Not Logged In</div>
                 <div id="accountRole" class="home-user-role">Guest</div>
+                <div id="accountStatus" class="home-user-status">Offline</div>
+                <div id="accountActiveSession" class="home-user-session">Active Session Name</div>
+              </div>
+
+              <div class="home-user-actions">
+                <button id="adminQuickButton" class="menu-button home-side-button" type="button">
+                  Admin P.
+                </button>
+                <button id="logoutButton" class="menu-button home-side-button" type="button">
+                  Log Out
+                </button>
               </div>
             </div>
 
-            <div class="home-user-info-grid">
-              <div class="home-info-row">
-                <span>Status</span>
-                <strong id="accountStatus">Offline</strong>
+            <div class="home-user-footer">
+              <div class="home-user-footer-left">
+                ---------Discord ID Goes here---------
               </div>
 
-              <div class="home-info-row">
-                <span>Discord ID</span>
-                <strong id="accountDiscordId">---</strong>
+              <div class="home-user-ready-wrap">
+                <span class="home-ready-label">Ready</span>
+                <span id="accountReadyStatus" class="home-ready-pill ready-no">Not Ready</span>
               </div>
-
-              <div class="home-info-row">
-                <span>Active Session</span>
-                <strong id="accountActiveSession">Season 1</strong>
-              </div>
-            </div>
-
-            <div class="home-user-actions">
-              <button class="home-small-button" type="button">Join Session</button>
-              <button class="home-small-button" type="button">Leave Session</button>
-              <button id="logoutButton" class="home-small-button" type="button">Log Out</button>
             </div>
           </section>
 
-          <section class="home-card home-online-users">
-            <div class="home-card-title">Online Players</div>
-
+          <section class="home-card home-online-card">
             <div class="home-online-scroll">
-              <div class="home-online-list">
-                <div class="home-player-row online">
-                  <div class="home-player-avatar-shell">
-                    <img src="assets/logos/progression-series.png" class="home-player-avatar" alt="QaMazi" />
+              <div class="home-online-track">
+                <article class="home-online-chip ready-yes">
+                  <div class="home-chip-avatar-wrap">
+                    <img src="assets/logos/progression-series.png" alt="QaMazi" class="home-chip-avatar" />
                   </div>
-                  <span class="home-player-name">QaMazi</span>
-                  <span class="home-player-status">Online</span>
-                </div>
-
-                <div class="home-player-row online">
-                  <div class="home-player-avatar-shell">
-                    <img src="assets/logos/progression-series.png" class="home-player-avatar" alt="SKX" />
+                  <div class="home-chip-meta">
+                    <div class="home-chip-name">QaMazi</div>
+                    <div class="home-chip-role">Admin</div>
                   </div>
-                  <span class="home-player-name">SKX</span>
-                  <span class="home-player-status">Online</span>
-                </div>
-
-                <div class="home-player-row away">
-                  <div class="home-player-avatar-shell">
-                    <img src="assets/logos/progression-series.png" class="home-player-avatar" alt="Silverwolf" />
+                  <div class="home-chip-status-block">
+                    <div class="home-chip-presence online">Online</div>
+                    <div class="home-chip-ready">Ready</div>
                   </div>
-                  <span class="home-player-name">Silverwolf</span>
-                  <span class="home-player-status">Away</span>
-                </div>
+                </article>
 
-                <div class="home-player-row offline">
-                  <div class="home-player-avatar-shell">
-                    <img src="assets/logos/progression-series.png" class="home-player-avatar" alt="Blu" />
+                <article class="home-online-chip ready-no">
+                  <div class="home-chip-avatar-wrap">
+                    <img src="assets/logos/progression-series.png" alt="SKX" class="home-chip-avatar" />
                   </div>
-                  <span class="home-player-name">Blu</span>
-                  <span class="home-player-status">Offline</span>
-                </div>
-
-                <div class="home-player-row online">
-                  <div class="home-player-avatar-shell">
-                    <img src="assets/logos/progression-series.png" class="home-player-avatar" alt="Nightmare" />
+                  <div class="home-chip-meta">
+                    <div class="home-chip-name">SKX</div>
+                    <div class="home-chip-role">Player</div>
                   </div>
-                  <span class="home-player-name">Nightmare</span>
-                  <span class="home-player-status">Online</span>
-                </div>
+                  <div class="home-chip-status-block">
+                    <div class="home-chip-presence online">Online</div>
+                    <div class="home-chip-ready">Not Ready</div>
+                  </div>
+                </article>
 
-                <div class="home-player-row empty">
-                  <div class="home-player-avatar-shell home-player-avatar-empty"></div>
-                  <span class="home-player-name">Waiting for Player</span>
-                  <span class="home-player-status">Empty</span>
-                </div>
+                <article class="home-online-chip ready-yes">
+                  <div class="home-chip-avatar-wrap">
+                    <img src="assets/logos/progression-series.png" alt="Silverwolf" class="home-chip-avatar" />
+                  </div>
+                  <div class="home-chip-meta">
+                    <div class="home-chip-name">Silverwolf</div>
+                    <div class="home-chip-role">Player</div>
+                  </div>
+                  <div class="home-chip-status-block">
+                    <div class="home-chip-presence away">Away</div>
+                    <div class="home-chip-ready">Ready</div>
+                  </div>
+                </article>
+
+                <article class="home-online-chip ready-no">
+                  <div class="home-chip-avatar-wrap">
+                    <img src="assets/logos/progression-series.png" alt="Blu" class="home-chip-avatar" />
+                  </div>
+                  <div class="home-chip-meta">
+                    <div class="home-chip-name">Blu</div>
+                    <div class="home-chip-role">Player</div>
+                  </div>
+                  <div class="home-chip-status-block">
+                    <div class="home-chip-presence offline">Offline</div>
+                    <div class="home-chip-ready">Not Ready</div>
+                  </div>
+                </article>
+
+                <article class="home-online-chip ready-yes">
+                  <div class="home-chip-avatar-wrap">
+                    <img src="assets/logos/progression-series.png" alt="Nightmare" class="home-chip-avatar" />
+                  </div>
+                  <div class="home-chip-meta">
+                    <div class="home-chip-name">Nightmare</div>
+                    <div class="home-chip-role">Player</div>
+                  </div>
+                  <div class="home-chip-status-block">
+                    <div class="home-chip-presence online">Online</div>
+                    <div class="home-chip-ready">Ready</div>
+                  </div>
+                </article>
               </div>
             </div>
           </section>
-        </aside>
+        </div>
 
-        <section class="home-logo-band">
+        <div class="home-logo-panel">
           <img
             src="assets/logos/progression-series-logo.png"
             alt="Progression Series Logo"
             class="home-main-logo"
           />
-        </section>
+        </div>
+      </section>
 
-        <section class="home-card home-activity-log">
-          <div class="home-card-title">Recent Activity</div>
+      <div class="home-duel-row">
+        <button id="duelLaunchButton" class="menu-button home-duel-button" type="button">
+          Duel
+        </button>
+      </div>
 
-          <ul class="home-log-list">
-            <li>Nightmare pulled Secret Rare Jinzo</li>
-            <li>Silverwolf opened Promo Box 2</li>
-            <li>SKX pulled Dark Magician</li>
-            <li>Blu opened Legacy Pack</li>
-            <li>QaMazi joined the active session</li>
-            <li>Admin enabled Scoreboard</li>
-            <li>Feature phase scheduled for next session</li>
-            <li>Patch notes updated to v0.1.5</li>
-          </ul>
-        </section>
-
-        <section class="home-card home-schedule-card">
-          <div class="home-card-title">Schedule</div>
-
-          <div class="home-schedule-content">
-            <div class="home-schedule-label">Next Session</div>
-            <div class="home-schedule-phase">Draft Phase</div>
-            <div class="home-schedule-time">June 12 • 8:00 PM</div>
-            <div class="home-schedule-countdown">02:14:21</div>
+      <section class="home-bottom">
+        <section class="home-card home-widget home-activity-widget">
+          <h2 class="home-widget-title">Recent Activity</h2>
+          <div class="home-widget-scroll">
+            <ul class="home-log-list">
+              <li>Nightmare pulled Secret Rare Jinzo</li>
+              <li>Silverwolf opened Promo Box 2</li>
+              <li>SKX pulled Dark Magician</li>
+              <li>Blu opened Legacy Pack</li>
+              <li>QaMazi joined the active session</li>
+              <li>Admin enabled Scoreboard</li>
+              <li>Feature phase scheduled for next session</li>
+              <li>Patch notes updated to v0.1.5</li>
+            </ul>
           </div>
         </section>
 
-        <section class="home-command-panel">
-          <div class="home-command-column">
-            <div class="home-command-title">Game Controls</div>
-
-            <div class="home-menu-stack">
-              <a href="pages/phases.html" class="home-menu-button">Phases</a>
-              <a href="pages/scoreboard.html" class="home-menu-button">Scoreboard</a>
-              <a href="#" class="home-menu-button is-locked">Banlist <span class="lock-icon">🔒</span></a>
-              <a href="#" class="home-menu-button is-locked">Player Inventories <span class="lock-icon">🔒</span></a>
-              <a href="#" class="home-menu-button is-locked">Session Info <span class="lock-icon">🔒</span></a>
-              <a href="pages/admin.html" class="home-menu-button" id="adminPanelButton">Admin Panel</a>
+        <section class="home-card home-widget home-schedule-widget-card">
+          <h2 class="home-widget-title">Schedule &amp; Next Match Ups</h2>
+          <div class="home-widget-scroll">
+            <div class="home-schedule-block">
+              <div class="home-schedule-heading">Next Session</div>
+              <div class="home-schedule-value">Draft Phase</div>
+              <div class="home-schedule-sub">June 12 • 8:00 PM</div>
+              <div class="home-schedule-countdown">02:14:21</div>
             </div>
-          </div>
 
-          <div class="home-command-column">
-            <div class="home-command-title">Player Tools</div>
+            <div class="home-schedule-divider"></div>
 
-            <div class="home-menu-stack">
-              <a href="#" class="home-menu-button is-locked">Your Decks <span class="lock-icon">🔒</span></a>
-              <a href="pages/user-inventory.html" class="home-menu-button">Your Inventory</a>
-              <a href="#" class="home-menu-button is-locked">Your Notes <span class="lock-icon">🔒</span></a>
-              <a href="pages/store.html" class="home-menu-button">Store</a>
-              <a href="#" class="home-menu-button is-locked">Trade Room <span class="lock-icon">🔒</span></a>
-              <a href="#" class="home-menu-button is-locked">Card Database <span class="lock-icon">🔒</span></a>
+            <div class="home-bracket-block">
+              <div class="home-schedule-heading">Bracket Preview</div>
+              <div class="home-bracket-item">Round 1: QaMazi vs SKX</div>
+              <div class="home-bracket-item">Round 1: Silverwolf vs Blu</div>
+              <div class="home-bracket-item">Nightmare receives bye</div>
             </div>
           </div>
         </section>
 
-        <section class="home-card home-patch-card">
-          <div class="home-patch-header">
-            <h2>Patch History</h2>
-            <span>Development Log</span>
+        <section class="home-menu-column">
+          <div class="home-menu-stack">
+            <a href="#" class="menu-button home-menu-button">Join/Leave Session</a>
+            <a href="#" class="menu-button home-menu-button">Session Info</a>
+            <a href="pages/scoreboard.html" class="menu-button home-menu-button">Session Scoreboard</a>
+            <a href="#" class="menu-button home-menu-button is-locked">Session Banlist <span class="lock-icon">🔒</span></a>
+            <a href="#" class="menu-button home-menu-button is-locked">Session All Player Inventories <span class="lock-icon">🔒</span></a>
+            <a href="#" class="menu-button home-menu-button is-locked">Session Item (Future) <span class="lock-icon">🔒</span></a>
+            <a href="#" class="menu-button home-menu-button is-locked">Session Item (Future) <span class="lock-icon">🔒</span></a>
           </div>
+        </section>
 
-          <div class="home-patch-scroll">
-            <div class="home-patch-entry current">
+        <section class="home-menu-column">
+          <div class="home-menu-stack">
+            <a href="#" class="menu-button home-menu-button">Ready Up</a>
+            <a href="pages/scoreboard.html" class="menu-button home-menu-button">Scoreboard</a>
+            <a href="#" class="menu-button home-menu-button is-locked">Decks <span class="lock-icon">🔒</span></a>
+            <a href="pages/user-inventory.html" class="menu-button home-menu-button">Inventory</a>
+            <a href="#" class="menu-button home-menu-button is-locked">Trade <span class="lock-icon">🔒</span></a>
+            <a href="pages/store.html" class="menu-button home-menu-button">Store</a>
+            <a href="#" class="menu-button home-menu-button is-locked">Notes <span class="lock-icon">🔒</span></a>
+            <a href="#" class="menu-button home-menu-button is-locked">Starter Decks <span class="lock-icon">🔒</span></a>
+          </div>
+        </section>
+
+        <section class="home-menu-column">
+          <div class="home-menu-stack">
+            <a href="#" class="menu-button home-menu-button is-locked">Card Database <span class="lock-icon">🔒</span></a>
+            <a href="#" class="menu-button home-menu-button is-locked">Pack Database <span class="lock-icon">🔒</span></a>
+            <a href="#" class="menu-button home-menu-button is-locked">Promo Box Database <span class="lock-icon">🔒</span></a>
+            <a href="pages/phases.html" class="menu-button home-menu-button">Phases &amp; Rules</a>
+            <a href="#" class="menu-button home-menu-button is-locked">App Item (Future) <span class="lock-icon">🔒</span></a>
+            <a href="#" class="menu-button home-menu-button is-locked">Roadmap <span class="lock-icon">🔒</span></a>
+            <a href="#" class="menu-button home-menu-button is-locked">Settings <span class="lock-icon">🔒</span></a>
+          </div>
+        </section>
+
+        <section class="home-card home-widget home-patch-widget">
+          <h2 class="home-widget-title">Patch History</h2>
+          <div class="home-widget-scroll">
+            <article class="home-patch-entry current">
               <div class="home-patch-top">
                 <span class="home-patch-version">v0.1.4</span>
                 <span class="home-patch-badge">Current</span>
               </div>
-
               <h3>Core Backend Infrastructure</h3>
-
               <ul>
                 <li>Implemented full Supabase backend architecture for the progression system.</li>
                 <li>Added multi-session progression campaigns with persistent save/load support.</li>
@@ -214,25 +255,23 @@
                 <li>Added real-time activity feed for session events.</li>
                 <li>Introduced content lock system for packs, promo boxes, and feature cards.</li>
               </ul>
-            </div>
+            </article>
 
-            <div class="home-patch-entry">
+            <article class="home-patch-entry">
               <div class="home-patch-top">
                 <span class="home-patch-version">v0.1.3</span>
                 <span class="home-patch-badge muted">Stable</span>
               </div>
-
               <h3>Pack Opening Systems</h3>
-
               <ul>
                 <li>Built promotional box opening flow and rarity framework.</li>
                 <li>Added recent pull tracking and local activity storage.</li>
                 <li>Improved UI feedback for opening results and inventory flow.</li>
               </ul>
-            </div>
+            </article>
           </div>
         </section>
-      </main>
+      </section>
     </div>
   </div>
 
@@ -249,10 +288,10 @@
       const accountUsername = document.getElementById("accountUsername");
       const accountRole = document.getElementById("accountRole");
       const accountStatus = document.getElementById("accountStatus");
-      const accountDiscordId = document.getElementById("accountDiscordId");
       const accountActiveSession = document.getElementById("accountActiveSession");
+      const accountDiscordIdLine = document.querySelector(".home-user-footer-left");
       const logoutButton = document.getElementById("logoutButton");
-      const adminPanelButton = document.getElementById("adminPanelButton");
+      const adminQuickButton = document.getElementById("adminQuickButton");
 
       function fillAccountPanelFromSession(session, userRecord = null) {
         const user = session?.user;
@@ -280,42 +319,42 @@
           user.user_metadata?.picture ||
           "";
 
-        const role =
-          userRecord?.role ||
-          "player";
+        const role = userRecord?.role || "player";
 
         if (authUserInfo) {
           authUserInfo.textContent = `Logged in as ${username} (${role})`;
         }
 
         if (accountUsername) accountUsername.textContent = username;
-        if (accountRole) accountRole.textContent = role;
+        if (accountRole) accountRole.textContent = role.toUpperCase();
         if (accountStatus) accountStatus.textContent = "Online";
-        if (accountDiscordId) accountDiscordId.textContent = discordId;
-        if (accountActiveSession) accountActiveSession.textContent = "Season 1";
+        if (accountActiveSession) accountActiveSession.textContent = "Active Session Name";
+        if (accountDiscordIdLine) accountDiscordIdLine.textContent = `--------- ${discordId} ---------`;
 
         if (accountAvatar && avatar) {
           accountAvatar.src = avatar;
         }
 
-        if (adminPanelButton) {
-          adminPanelButton.style.display = role === "admin" ? "flex" : "none";
+        if (adminQuickButton) {
+          adminQuickButton.style.display = role === "admin" ? "inline-flex" : "none";
         }
       }
 
       loginButton?.addEventListener("click", async () => {
         if (!window.ggAuth) {
-          console.error("ggAuth is not loaded.");
           alert("Login system failed to load.");
           return;
         }
-
         await window.ggAuth.signInWithDiscord();
       });
 
       logoutButton?.addEventListener("click", async () => {
         if (!window.ggAuth) return;
         await window.ggAuth.signOut();
+      });
+
+      adminQuickButton?.addEventListener("click", () => {
+        window.location.href = "pages/admin.html";
       });
 
       document.querySelectorAll(".is-locked").forEach((button) => {
@@ -328,7 +367,7 @@
       const session = await window.ggAuth.getSession();
 
       if (!session) {
-        if (adminPanelButton) adminPanelButton.style.display = "none";
+        if (adminQuickButton) adminQuickButton.style.display = "none";
         document.body.classList.add("page-loaded");
         return;
       }
