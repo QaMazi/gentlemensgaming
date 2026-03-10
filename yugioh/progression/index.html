@@ -10,383 +10,342 @@
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 </head>
 <body>
-<div id="authGate" class="auth-gate">
-  <div class="auth-card">
-    <h2>YGO Progression Login</h2>
-
-    <p>
-      Sign in with Discord to access the progression app.
-    </p>
-
-    <button id="discordLoginButton" class="menu-button">
-      Login with Discord
-    </button>
-
-    <div id="authUserInfo" class="auth-user"></div>
+  <div id="authGate" class="auth-gate">
+    <div class="auth-card">
+      <h2>YGO Progression Login</h2>
+      <p>Sign in with Discord to access the progression app.</p>
+      <button id="discordLoginButton" class="home-auth-button">Login with Discord</button>
+      <div id="authUserInfo" class="auth-user"></div>
+    </div>
   </div>
-</div>
 
-<div class="video-background">
-  <video autoplay muted loop playsinline id="bgVideo">
-    <source src="assets/video/background.mp4" type="video/mp4" />
-  </video>
-  <div class="video-overlay"></div>
-</div>
+  <div class="video-background">
+    <video autoplay muted loop playsinline id="bgVideo">
+      <source src="assets/video/background.mp4" type="video/mp4" />
+    </video>
+    <div class="video-overlay"></div>
+  </div>
 
-<div class="app-shell">
-  <header class="main-header">
-    <div class="version-tag">v0.1.4</div>
+  <div class="app-shell home-shell">
+    <div class="home-stage">
+      <main class="home-canvas">
+        <aside class="home-sidebar">
+          <div class="home-version-pill">v0.1.5</div>
 
-    <div class="main-logo-wrap">
-      <img
-        src="assets/logos/progression-series-logo.png"
-        alt="Progression Series Logo"
-        class="main-logo"
-      />
-    </div>
-  </header>
+          <section class="home-card home-current-user">
+            <div class="home-card-title">Current User</div>
 
-  <main class="home-dashboard">
+            <div class="home-user-top">
+              <div class="home-user-avatar-wrap">
+                <img
+                  id="accountAvatar"
+                  class="home-user-avatar"
+                  src="assets/logos/progression-series.png"
+                  alt="User Avatar"
+                />
+              </div>
 
-    <section class="home-panel home-user-panel">
-      <div class="home-panel-header">
-        <h2>Current User</h2>
-      </div>
-
-      <div class="account-card">
-        <div class="account-card-body">
-          <div class="account-avatar-wrap">
-            <img
-              id="accountAvatar"
-              class="account-avatar"
-              src="assets/logos/progression-series.png"
-              alt="User Avatar"
-            />
-          </div>
-
-          <div class="account-user-meta">
-            <div id="accountUsername" class="account-username">Not Logged In</div>
-            <div id="accountRole" class="account-role">Guest</div>
-          </div>
-
-          <div class="account-stats">
-            <div class="account-stat-row">
-              <span>Status</span>
-              <strong id="accountStatus">Offline</strong>
+              <div class="home-user-meta">
+                <div id="accountUsername" class="home-user-name">Not Logged In</div>
+                <div id="accountRole" class="home-user-role">Guest</div>
+              </div>
             </div>
 
-            <div class="account-stat-row">
-              <span>Discord ID</span>
-              <strong id="accountDiscordId">---</strong>
+            <div class="home-user-info-grid">
+              <div class="home-info-row">
+                <span>Status</span>
+                <strong id="accountStatus">Offline</strong>
+              </div>
+
+              <div class="home-info-row">
+                <span>Discord ID</span>
+                <strong id="accountDiscordId">---</strong>
+              </div>
+
+              <div class="home-info-row">
+                <span>Active Session</span>
+                <strong id="accountActiveSession">Season 1</strong>
+              </div>
             </div>
 
-            <div class="account-stat-row">
-              <span>Active Session</span>
-              <strong id="accountActiveSession">Season 1</strong>
+            <div class="home-user-actions">
+              <button class="home-small-button" type="button">Join Session</button>
+              <button class="home-small-button" type="button">Leave Session</button>
+              <button id="logoutButton" class="home-small-button" type="button">Log Out</button>
+            </div>
+          </section>
+
+          <section class="home-card home-online-users">
+            <div class="home-card-title">Online Players</div>
+
+            <div class="home-online-scroll">
+              <div class="home-online-list">
+                <div class="home-player-row online">
+                  <div class="home-player-avatar-shell">
+                    <img src="assets/logos/progression-series.png" class="home-player-avatar" alt="QaMazi" />
+                  </div>
+                  <span class="home-player-name">QaMazi</span>
+                  <span class="home-player-status">Online</span>
+                </div>
+
+                <div class="home-player-row online">
+                  <div class="home-player-avatar-shell">
+                    <img src="assets/logos/progression-series.png" class="home-player-avatar" alt="SKX" />
+                  </div>
+                  <span class="home-player-name">SKX</span>
+                  <span class="home-player-status">Online</span>
+                </div>
+
+                <div class="home-player-row away">
+                  <div class="home-player-avatar-shell">
+                    <img src="assets/logos/progression-series.png" class="home-player-avatar" alt="Silverwolf" />
+                  </div>
+                  <span class="home-player-name">Silverwolf</span>
+                  <span class="home-player-status">Away</span>
+                </div>
+
+                <div class="home-player-row offline">
+                  <div class="home-player-avatar-shell">
+                    <img src="assets/logos/progression-series.png" class="home-player-avatar" alt="Blu" />
+                  </div>
+                  <span class="home-player-name">Blu</span>
+                  <span class="home-player-status">Offline</span>
+                </div>
+
+                <div class="home-player-row online">
+                  <div class="home-player-avatar-shell">
+                    <img src="assets/logos/progression-series.png" class="home-player-avatar" alt="Nightmare" />
+                  </div>
+                  <span class="home-player-name">Nightmare</span>
+                  <span class="home-player-status">Online</span>
+                </div>
+
+                <div class="home-player-row empty">
+                  <div class="home-player-avatar-shell home-player-avatar-empty"></div>
+                  <span class="home-player-name">Waiting for Player</span>
+                  <span class="home-player-status">Empty</span>
+                </div>
+              </div>
+            </div>
+          </section>
+        </aside>
+
+        <section class="home-logo-band">
+          <img
+            src="assets/logos/progression-series-logo.png"
+            alt="Progression Series Logo"
+            class="home-main-logo"
+          />
+        </section>
+
+        <section class="home-card home-activity-log">
+          <div class="home-card-title">Recent Activity</div>
+
+          <ul class="home-log-list">
+            <li>Nightmare pulled Secret Rare Jinzo</li>
+            <li>Silverwolf opened Promo Box 2</li>
+            <li>SKX pulled Dark Magician</li>
+            <li>Blu opened Legacy Pack</li>
+            <li>QaMazi joined the active session</li>
+            <li>Admin enabled Scoreboard</li>
+            <li>Feature phase scheduled for next session</li>
+            <li>Patch notes updated to v0.1.5</li>
+          </ul>
+        </section>
+
+        <section class="home-card home-schedule-card">
+          <div class="home-card-title">Schedule</div>
+
+          <div class="home-schedule-content">
+            <div class="home-schedule-label">Next Session</div>
+            <div class="home-schedule-phase">Draft Phase</div>
+            <div class="home-schedule-time">June 12 • 8:00 PM</div>
+            <div class="home-schedule-countdown">02:14:21</div>
+          </div>
+        </section>
+
+        <section class="home-command-panel">
+          <div class="home-command-column">
+            <div class="home-command-title">Game Controls</div>
+
+            <div class="home-menu-stack">
+              <a href="pages/phases.html" class="home-menu-button">Phases</a>
+              <a href="pages/scoreboard.html" class="home-menu-button">Scoreboard</a>
+              <a href="#" class="home-menu-button is-locked">Banlist <span class="lock-icon">🔒</span></a>
+              <a href="#" class="home-menu-button is-locked">Player Inventories <span class="lock-icon">🔒</span></a>
+              <a href="#" class="home-menu-button is-locked">Session Info <span class="lock-icon">🔒</span></a>
+              <a href="pages/admin.html" class="home-menu-button" id="adminPanelButton">Admin Panel</a>
             </div>
           </div>
 
-          <div class="home-user-actions">
-            <button class="menu-button home-action-button" type="button">Join Session</button>
-            <button class="menu-button home-action-button" type="button">Leave Session</button>
+          <div class="home-command-column">
+            <div class="home-command-title">Player Tools</div>
+
+            <div class="home-menu-stack">
+              <a href="#" class="home-menu-button is-locked">Your Decks <span class="lock-icon">🔒</span></a>
+              <a href="pages/user-inventory.html" class="home-menu-button">Your Inventory</a>
+              <a href="#" class="home-menu-button is-locked">Your Notes <span class="lock-icon">🔒</span></a>
+              <a href="pages/store.html" class="home-menu-button">Store</a>
+              <a href="#" class="home-menu-button is-locked">Trade Room <span class="lock-icon">🔒</span></a>
+              <a href="#" class="home-menu-button is-locked">Card Database <span class="lock-icon">🔒</span></a>
+            </div>
           </div>
+        </section>
 
-          <button id="logoutButton" class="menu-button logout-button" type="button">
-            Log Out
-          </button>
-        </div>
-      </div>
-    </section>
-
-    <section class="home-panel home-controls-panel">
-      <div class="home-panel-header">
-        <h2>Game Controls</h2>
-      </div>
-
-      <div class="menu-buttons compact-buttons">
-        <a href="pages/phases.html" class="menu-button">Phases</a>
-        <a href="pages/scoreboard.html" class="menu-button">Scoreboard</a>
-        <a href="#" class="menu-button is-locked">Banlist <span class="lock-icon">🔒</span></a>
-        <a href="#" class="menu-button is-locked">Player Inventories <span class="lock-icon">🔒</span></a>
-        <a href="#" class="menu-button is-locked">Session Info <span class="lock-icon">🔒</span></a>
-        <a href="pages/admin.html" class="menu-button" id="adminPanelButton">Admin Panel</a>
-      </div>
-    </section>
-
-    <section class="home-panel home-tools-panel">
-      <div class="home-panel-header">
-        <h2>Player Tools</h2>
-      </div>
-
-      <div class="menu-buttons compact-buttons">
-        <a href="#" class="menu-button is-locked">Your Decks <span class="lock-icon">🔒</span></a>
-        <a href="pages/user-inventory.html" class="menu-button">Your Inventory</a>
-        <a href="#" class="menu-button is-locked">Your Notes <span class="lock-icon">🔒</span></a>
-        <a href="pages/store.html" class="menu-button">Store</a>
-        <a href="#" class="menu-button is-locked">Trade Room <span class="lock-icon">🔒</span></a>
-        <a href="#" class="menu-button is-locked">Card Database <span class="lock-icon">🔒</span></a>
-      </div>
-    </section>
-
-    <section class="home-panel home-online-panel">
-      <div class="home-panel-header">
-        <h2>Online Players</h2>
-      </div>
-
-      <div class="home-online-list">
-        <div class="home-player-slot online">
-          <img src="assets/logos/progression-series.png" class="home-player-avatar" alt="QaMazi" />
-          <span class="home-player-name">QaMazi</span>
-          <span class="home-player-status">Online</span>
-        </div>
-
-        <div class="home-player-slot online">
-          <img src="assets/logos/progression-series.png" class="home-player-avatar" alt="SKX" />
-          <span class="home-player-name">SKX</span>
-          <span class="home-player-status">Online</span>
-        </div>
-
-        <div class="home-player-slot away">
-          <img src="assets/logos/progression-series.png" class="home-player-avatar" alt="Silverwolf" />
-          <span class="home-player-name">Silverwolf</span>
-          <span class="home-player-status">Away</span>
-        </div>
-
-        <div class="home-player-slot offline">
-          <img src="assets/logos/progression-series.png" class="home-player-avatar" alt="Blu" />
-          <span class="home-player-name">Blu</span>
-          <span class="home-player-status">Offline</span>
-        </div>
-
-        <div class="home-player-slot online">
-          <img src="assets/logos/progression-series.png" class="home-player-avatar" alt="Nightmare" />
-          <span class="home-player-name">Nightmare</span>
-          <span class="home-player-status">Online</span>
-        </div>
-
-        <div class="home-player-slot empty">
-          <div class="home-player-avatar empty-avatar"></div>
-          <span class="home-player-name">Waiting for Player</span>
-          <span class="home-player-status">Empty</span>
-        </div>
-      </div>
-    </section>
-
-    <section class="home-panel home-widgets-panel">
-      <div class="home-widget-card">
-        <div class="home-panel-header">
-          <h2>Recent Pulls</h2>
-        </div>
-
-        <ul class="home-feed-list">
-          <li>Nightmare pulled Secret Rare Jinzo</li>
-          <li>Silverwolf opened Promo Box 2</li>
-          <li>SKX pulled Dark Magician</li>
-          <li>Blu opened Legacy Pack</li>
-          <li>QaMazi pulled Thousand-Eyes Restrict</li>
-        </ul>
-      </div>
-
-      <div class="home-widget-card">
-        <div class="home-panel-header">
-          <h2>Schedule</h2>
-        </div>
-
-        <div class="home-schedule-widget">
-          <div class="home-schedule-label">Next Session</div>
-          <div class="home-schedule-phase">Draft Phase</div>
-          <div class="home-schedule-time">June 12 • 8:00 PM</div>
-          <div class="home-schedule-countdown">02:14:21</div>
-        </div>
-      </div>
-    </section>
-
-    <section class="home-panel home-patch-panel">
-      <div class="updates-panel">
-        <div class="updates-panel-inner">
-          <div class="updates-panel-header">
+        <section class="home-card home-patch-card">
+          <div class="home-patch-header">
             <h2>Patch History</h2>
-            <span class="updates-panel-subtitle">Development Log</span>
+            <span>Development Log</span>
           </div>
 
-          <div class="updates-scroll">
-            <div class="updates-list">
+          <div class="home-patch-scroll">
+            <div class="home-patch-entry current">
+              <div class="home-patch-top">
+                <span class="home-patch-version">v0.1.4</span>
+                <span class="home-patch-badge">Current</span>
+              </div>
 
-              <article class="update-card">
-                <div class="update-card-top">
-                  <span class="update-version">v0.1.4</span>
-                  <span class="update-badge update-badge-live">Current</span>
-                </div>
+              <h3>Core Backend Infrastructure</h3>
 
-                <h3 class="update-title">Core Backend Infrastructure</h3>
+              <ul>
+                <li>Implemented full Supabase backend architecture for the progression system.</li>
+                <li>Added multi-session progression campaigns with persistent save/load support.</li>
+                <li>Built lobby system with join, leave, and ready state tracking.</li>
+                <li>Added real-time activity feed for session events.</li>
+                <li>Introduced content lock system for packs, promo boxes, and feature cards.</li>
+              </ul>
+            </div>
 
-                <ul class="update-points">
-                  <li>Implemented full Supabase backend architecture for the progression system.</li>
-                  <li>Added multi-session progression campaigns with persistent save/load support.</li>
-                  <li>Built lobby system with join, leave, and ready state tracking.</li>
-                  <li>Added real-time activity feed for session events.</li>
-                  <li>Introduced content lock system for packs, promo boxes, and feature cards.</li>
-                </ul>
-              </article>
+            <div class="home-patch-entry">
+              <div class="home-patch-top">
+                <span class="home-patch-version">v0.1.3</span>
+                <span class="home-patch-badge muted">Stable</span>
+              </div>
 
-              <article class="update-card">
-                <div class="update-card-top">
-                  <span class="update-version">v0.1.3</span>
-                  <span class="update-badge">Stable</span>
-                </div>
+              <h3>Pack Opening Systems</h3>
 
-                <h3 class="update-title">Pack Opening Systems</h3>
-
-                <ul class="update-points">
-                  <li>Built promotional box opening flow and rarity framework.</li>
-                  <li>Added recent pull tracking and local activity storage.</li>
-                  <li>Improved UI feedback for opening results and inventory flow.</li>
-                </ul>
-              </article>
-
+              <ul>
+                <li>Built promotional box opening flow and rarity framework.</li>
+                <li>Added recent pull tracking and local activity storage.</li>
+                <li>Improved UI feedback for opening results and inventory flow.</li>
+              </ul>
             </div>
           </div>
-        </div>
-      </div>
-    </section>
-
-  </main>
-
-  <footer class="gg-minimal-footer">
-    <div class="gg-footer-inner">
-      <div class="gg-footer-copy">
-        © Gentlemen's Gaming
-      </div>
-
-      <div class="gg-footer-discord">
-        <ul class="nk-social-links">
-          <li>
-            <a href="https://discord.gg/YOURINVITE" target="_blank">
-              <span class="fab fa-discord"></span>
-            </a>
-          </li>
-
-          <li>
-            <a href="https://discord.gg/YOURINVITE2" target="_blank">
-              <span class="fab fa-discord"></span>
-            </a>
-          </li>
-        </ul>
-      </div>
+        </section>
+      </main>
     </div>
-  </footer>
-</div>
+  </div>
 
-<script src="js/database.js"></script>
-<script src="js/auth.js"></script>
-<script src="js/app.js"></script>
-<script>
-  document.addEventListener("DOMContentLoaded", async () => {
-    const authGate = document.getElementById("authGate");
-    const loginButton = document.getElementById("discordLoginButton");
-    const authUserInfo = document.getElementById("authUserInfo");
+  <script src="js/database.js"></script>
+  <script src="js/auth.js"></script>
+  <script src="js/app.js"></script>
+  <script>
+    document.addEventListener("DOMContentLoaded", async () => {
+      const authGate = document.getElementById("authGate");
+      const loginButton = document.getElementById("discordLoginButton");
+      const authUserInfo = document.getElementById("authUserInfo");
 
-    const accountAvatar = document.getElementById("accountAvatar");
-    const accountUsername = document.getElementById("accountUsername");
-    const accountRole = document.getElementById("accountRole");
-    const accountStatus = document.getElementById("accountStatus");
-    const accountDiscordId = document.getElementById("accountDiscordId");
-    const accountActiveSession = document.getElementById("accountActiveSession");
-    const logoutButton = document.getElementById("logoutButton");
-    const adminPanelButton = document.getElementById("adminPanelButton");
+      const accountAvatar = document.getElementById("accountAvatar");
+      const accountUsername = document.getElementById("accountUsername");
+      const accountRole = document.getElementById("accountRole");
+      const accountStatus = document.getElementById("accountStatus");
+      const accountDiscordId = document.getElementById("accountDiscordId");
+      const accountActiveSession = document.getElementById("accountActiveSession");
+      const logoutButton = document.getElementById("logoutButton");
+      const adminPanelButton = document.getElementById("adminPanelButton");
 
-    function fillAccountPanelFromSession(session, userRecord = null) {
-      const user = session?.user;
-      if (!user) return;
+      function fillAccountPanelFromSession(session, userRecord = null) {
+        const user = session?.user;
+        if (!user) return;
 
-      const discordId =
-        userRecord?.discord_id ||
-        user.user_metadata?.provider_id ||
-        user.user_metadata?.sub ||
-        user.id ||
-        "---";
+        const discordId =
+          userRecord?.discord_id ||
+          user.user_metadata?.provider_id ||
+          user.user_metadata?.sub ||
+          user.id ||
+          "---";
 
-      const username =
-        userRecord?.username ||
-        user.user_metadata?.preferred_username ||
-        user.user_metadata?.full_name ||
-        user.user_metadata?.name ||
-        user.user_metadata?.user_name ||
-        user.email ||
-        "Unknown User";
+        const username =
+          userRecord?.username ||
+          user.user_metadata?.preferred_username ||
+          user.user_metadata?.full_name ||
+          user.user_metadata?.name ||
+          user.user_metadata?.user_name ||
+          user.email ||
+          "Unknown User";
 
-      const avatar =
-        userRecord?.avatar ||
-        user.user_metadata?.avatar_url ||
-        user.user_metadata?.picture ||
-        "";
+        const avatar =
+          userRecord?.avatar ||
+          user.user_metadata?.avatar_url ||
+          user.user_metadata?.picture ||
+          "";
 
-      const role =
-        userRecord?.role ||
-        "player";
+        const role =
+          userRecord?.role ||
+          "player";
 
-      if (authUserInfo) {
-        authUserInfo.textContent = `Logged in as ${username} (${role})`;
+        if (authUserInfo) {
+          authUserInfo.textContent = `Logged in as ${username} (${role})`;
+        }
+
+        if (accountUsername) accountUsername.textContent = username;
+        if (accountRole) accountRole.textContent = role;
+        if (accountStatus) accountStatus.textContent = "Online";
+        if (accountDiscordId) accountDiscordId.textContent = discordId;
+        if (accountActiveSession) accountActiveSession.textContent = "Season 1";
+
+        if (accountAvatar && avatar) {
+          accountAvatar.src = avatar;
+        }
+
+        if (adminPanelButton) {
+          adminPanelButton.style.display = role === "admin" ? "flex" : "none";
+        }
       }
 
-      if (accountUsername) accountUsername.textContent = username;
-      if (accountRole) accountRole.textContent = role;
-      if (accountStatus) accountStatus.textContent = "Online";
-      if (accountDiscordId) accountDiscordId.textContent = discordId;
-      if (accountActiveSession) accountActiveSession.textContent = "Season 1";
+      loginButton?.addEventListener("click", async () => {
+        if (!window.ggAuth) {
+          console.error("ggAuth is not loaded.");
+          alert("Login system failed to load.");
+          return;
+        }
 
-      if (accountAvatar && avatar) {
-        accountAvatar.src = avatar;
-      }
+        await window.ggAuth.signInWithDiscord();
+      });
 
-      if (adminPanelButton) {
-        adminPanelButton.style.display = role === "admin" ? "flex" : "none";
-      }
-    }
+      logoutButton?.addEventListener("click", async () => {
+        if (!window.ggAuth) return;
+        await window.ggAuth.signOut();
+      });
 
-    loginButton?.addEventListener("click", async () => {
-      if (!window.ggAuth) {
-        console.error("ggAuth is not loaded.");
-        alert("Login system failed to load.");
+      document.querySelectorAll(".is-locked").forEach((button) => {
+        button.addEventListener("click", (event) => {
+          event.preventDefault();
+          alert("This feature is currently disabled.");
+        });
+      });
+
+      const session = await window.ggAuth.getSession();
+
+      if (!session) {
+        if (adminPanelButton) adminPanelButton.style.display = "none";
+        document.body.classList.add("page-loaded");
         return;
       }
 
-      await window.ggAuth.signInWithDiscord();
-    });
+      let userRecord = null;
 
-    logoutButton?.addEventListener("click", async () => {
-      if (!window.ggAuth) return;
-      await window.ggAuth.signOut();
-    });
+      try {
+        userRecord = await window.ggAuth.ensureUserRecord(session);
+      } catch (error) {
+        console.error("ensureUserRecord failed:", error);
+      }
 
-    document.querySelectorAll(".is-locked").forEach((button) => {
-      button.addEventListener("click", (event) => {
-        event.preventDefault();
-        alert("This feature is currently disabled.");
-      });
-    });
+      fillAccountPanelFromSession(session, userRecord);
 
-    const session = await window.ggAuth.getSession();
-
-    if (!session) {
-      if (adminPanelButton) adminPanelButton.style.display = "none";
+      authGate?.classList.add("auth-hidden");
       document.body.classList.add("page-loaded");
-      return;
-    }
-
-    let userRecord = null;
-
-    try {
-      userRecord = await window.ggAuth.ensureUserRecord(session);
-    } catch (error) {
-      console.error("ensureUserRecord failed:", error);
-    }
-
-    fillAccountPanelFromSession(session, userRecord);
-
-    authGate?.classList.add("auth-hidden");
-    document.body.classList.add("page-loaded");
-  });
-</script>
+    });
+  </script>
 </body>
 </html>
